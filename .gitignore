@@ -1,0 +1,9 @@
+
+*.log
+*.LOG
+*.zip
+*.rpm
+
+Docs/*
+!Docs/*.md
+!Docs/*.xlsx
