@@ -7,3 +7,6 @@
 Docs/*
 !Docs/*.md
 !Docs/*.xlsx
+
+.idea
+utilities
