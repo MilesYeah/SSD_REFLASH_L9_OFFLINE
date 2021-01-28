@@ -4,6 +4,10 @@
 *.zip
 *.rpm
 
+.idea
+
 Docs/*
 !Docs/*.md
 !Docs/*.xlsx
+
+utilities/*

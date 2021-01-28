@@ -2,10 +2,31 @@
 cd /TEST
 export PATH=$PATH:/sbin:/usr/sbin
 
+# https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html
+
 # Enable extended globbing
 shopt -s extglob
 
+# series that need special tool to get FW updated.
+REGX_DCT="(D5-P4618)"
+REGX_FUT="(X18-M|X25-M|X25-E)"
+#REGX_MAS="()"
+
+
+# store required fw version
 declare -A ModelList=()
+# parse drive list at the beginning: "$Index,$ModelNumber,$Firmware,$FW_STATUS,$ProductFamily"
+declare -A DriveList=()
+# drive list while need an update
+declare -A InitialDriveList=()
+
+STARTTIME="$( date +"%T" | sed s/://g )"
+STARTDATE="$( date +"%y%m%d")"
+LOG_FILE="${STARTDATE}_${STARTTIME}_SSD_UPDATE.log"
+
+REBOOT_NEEDED=NO
+
+
 IFS=$'\n'
 for line in $(cat SSD_LIST.txt); do
 	drive=$(echo $line | awk -F= '{print $1}')	
@@ -27,27 +48,37 @@ done
 #ModelList["SSDSC2KB960G7"]="SCV10111" #J52619-000
 
 
-declare -A DriveList=()
-
-STARTTIME="$( date +"%T" | sed s/://g )"
-STARTDATE="$( date +"%y%m%d")"
-LOG_FILE="${STARTDATE}_${STARTTIME}_SSD_UPDATE.log"
-
 IdentifyDrives() {
 	FW_STATUS="UNKNOWN"	
 	IFS=$'\n'
 	for line in $(isdct show -intelssd)
 	do
-		regex="^Firmware :"
-        if [[ $line =~ $regex ]]; then
+		regx="^Firmware :"
+        if [[ $line =~ $regx ]]; then
 			Firmware=$(echo $line | awk '{print $3}')
+			continue
 		fi
-		regex="^ModelNumber"
-        if [[ $line =~ $regex ]]; then
+
+		regx="^Index :"
+		if [[ $line =~ $regx ]]; then
+			Index=$(echo $line | awk '{print $3}')
+			continue
+		fi
+
+		regx="^ModelNumber :"
+		if [[ $line =~ $regx ]]; then
 			ModelNumber=$(echo $line | awk '{print $4}')
+			continue
 		fi
-		regex="^SerialNumber"
-        if [[ $line =~ $regex ]]; then
+
+		regx="^ProductFamily :"
+		if [[ $line =~ $regx ]]; then
+			ProductFamily=$(echo $line | awk -F: '{print $2}')
+			continue
+		fi
+
+		regx="^SerialNumber :"
+		if [[ $line =~ $regx ]]; then
 			SerialNumber=$(echo $line | awk '{print $3}')
 			if [ "${ModelList["$ModelNumber"]}" != "" ]; then
 				if [ "$Firmware" == "${ModelList["$ModelNumber"]}" ]; then
@@ -55,14 +86,9 @@ IdentifyDrives() {
 				else
 					FW_STATUS="NEED"
 				fi
-			
-				DriveList["$SerialNumber"]="$Index,$ModelNumber,$Firmware,$FW_STATUS" 
+				DriveList["$SerialNumber"]="$Index,$ModelNumber,$Firmware,$FW_STATUS,$ProductFamily"
 			fi
 			FW_STATUS="UNKNOWN"	
-		fi
-		regex="^Index"
-        if [[ $line =~ $regex ]]; then
-			Index=$(echo $line | awk '{print $3}')
 		fi
 	done
 }
@@ -71,10 +97,9 @@ IdentifyDrives() {
 echo "-------------------------"
 echo "FINDING DRIVES FOR UPDATE"
 IdentifyDrives
-declare -A InitialDriveList=()
-for SN in "${!DriveList[@]}"
+for SerialNumber in "${!DriveList[@]}"
 do
-	InitialDriveList["$SN"]="${DriveList["$SN"]}"
+	InitialDriveList["$SerialNumber"]="${DriveList["$SerialNumber"]}"
 done
 
 for SerialNumber in "${!InitialDriveList[@]}"
@@ -84,14 +109,14 @@ done
 
 #UpdateFW
 Pids=()
-REBOOT_NEEDED=NO
 for SN in "${!InitialDriveList[@]}"
 do
 	Index=$(echo ${InitialDriveList[$SN]}|awk -F, '{print $1}')
 	Model=$(echo ${InitialDriveList[$SN]}|awk -F, '{print $2}')
-	Status=$(echo ${InitialDriveList[$SN]}|awk -F, '{print $4}')
+	FW_STATUS=$(echo ${InitialDriveList[$SN]}|awk -F, '{print $4}')
+	ProductFamily=$(echo ${InitialDriveList[$SN]}|awk -F, '{print $5}')
 	FW="${ModelList["$Model"]}"
-	if [ "$Status" != "COMPLETE" ]; then
+	if [ "$FW_STATUS" != "COMPLETE" ]; then
 		if [ -d ${FW} ]; then
 			#FW_image=$(find ${Model}/*.bin)
 			FW_image=$(find ${FW}/*.bin)
@@ -99,8 +124,16 @@ do
 			#issdcm_pid=$!
 			Pids+=($!)
 		else
-			nohup echo -n Y | isdct load -intelssd $SN > issdcm_${SN}.log &
-			#issdcm_pid=$!
+			if [[ $ProductFamily =~ $REGX_DCT ]]; then
+				# if FW file is not provided, use FW image inside of isdct to get drive FW updated.
+				nohup echo -n Y | isdct load -intelssd ${SN} > issdcm_${SN}.log &
+			elif [[ $ProductFamily =~ $REGX_FUT ]]; then
+				echo "Using issdfut to update REGX_MAS FW."
+				nohup echo -n Y | echo "issdfut works outside of the operating system, drive FW need to be updated outside of this process."  > issdcm_${SN}.log &
+			else
+				# if FW file is not provided, use FW image inside of intelmas to get drive FW updated.
+				nohup echo -n Y | intelmas load -intelssd ${SN} > issdcm_${SN}.log &
+			fi
 			Pids+=($!)
 		fi
 	else
@@ -156,8 +189,18 @@ do
 	fi
 done
 
+
 wput -q $LOG_FILE ftp://128.101.1.1/tstcom/STATINID/LOG/
 read -p "Hit ENTER to exit" -n1 -s
+
+
+function history (){
+v 201.0: 2020/12/11
+	Owner of this package has been transfered from Intel to MSL SW.
+	Add ProductFamily while detecting product list.
+	While updating FW, D5-P4618 series SSD would use isdct to update FW and the rest would use intelmas.
+
+}
 
 : <<'HISTORY'
 v101.0: Adding "SSDSC2BB150G7"="N2010121"
