@@ -20,7 +20,7 @@ declare -A DriveList=()
 # drive list while need an update
 declare -A InitialDriveList=()
 # Array to store drive update process ID
-declare -A Pids=()
+Pids=()
 
 
 REBOOT_NEEDED=NO
@@ -47,6 +47,38 @@ function debug_quit()
     exit
 }
 
+function show_pass()
+{
+    echo ""
+    echo         PPPPP     AA     SSS    SSS          
+    echo         PP  PP    AA    S   S  S   S         
+    echo         PP   P   A  A   S      S             
+    echo         PP  PP   A  A    SSS    SSS          
+    echo         PPPPP    A  A       S      S         
+    echo         PP       AAAA       S      S         
+    echo         PP      A    A  S   S  S   S         
+    echo         PP      A    A   SSS    SSS
+    echo ""
+
+}
+
+function show_fail()
+{
+    echo ""
+    echo        FFFFFFF   AA    IIIIII  LL     
+    echo        FF        AA      II    LL     
+    echo        FF       A  A     II    LL     
+    echo        FFFFF    A  A     II    LL     
+    echo        FF       A  A     II    LL     
+    echo        FF       AAAA     II    LL     
+    echo        FF      A    A    II    LL     
+    echo        FF      A    A  IIIIII  LLLLLLL
+    echo ""
+
+}
+
+
+
 function make_pretty_log_header()
 {
     echo "-------------------------------------------------------------------------------------" >> local_log.log
@@ -71,20 +103,6 @@ function get_std_drive_firmware()
     done
 
 }
-
-#ModelList["SSDPE2KX020T7"]="QDV10150" #MD17120849-005
-#ModelList["SSDPE2KE016T7"]="QDV10150" #MD17120849-002
-#ModelList["SSDPE21K375GA"]="QDV10150" #MD17120849-006 
-#ModelList["SSDPE2KX010T7"]="QDV10150" #J30917-101 
-#ModelList["SSDSC2BB150G7"]="N2010121" #MD17120849-004
-#ModelList["SSDSC2BB480G7"]="N2010121" #MD17120849-004
-#ModelList["SSDSC2BB240G7"]="N2010121" #J11256-002
-#ModelList["SSDSCKJB480G7"]="N2010121" #MD17120248-001
-#ModelList["SSDSC2KB240G7"]="SCV10111" #MD7503INT02
-#ModelList["SSDSC2KB480G7"]="SCV10111" #J52618-000
-#ModelList["SSDSC2KG480G7"]="SCV10111" #J52602-000
-#ModelList["SSDSC2KB960G7"]="SCV10111" #J52619-000
-
 
 IdentifyDrives() {
     FW_STATUS="UNKNOWN"	
@@ -157,11 +175,11 @@ function update_drive_firmware()
     #UpdateFW
     for SN in "${!InitialDriveList[@]}"
     do
-        Index=$(echo ${InitialDriveList[$SN]}|awk -F ";" '{print $1}')
-        Model=$(echo ${InitialDriveList[$SN]}|awk -F ";" '{print $2}')
-        FW_STATUS=$(echo ${InitialDriveList[$SN]}|awk -F ";" '{print $4}')
-        ProductFamily=$(echo ${InitialDriveList[$SN]}|awk -F ";" '{print $5}')
-        DeviceStatus=$(echo ${InitialDriveList[$SN]}|awk -F ";" '{print $6}')
+        Index=$(echo ${InitialDriveList[$SN]} | awk -F ";" '{print $1}')
+        Model=$(echo ${InitialDriveList[$SN]} | awk -F ";" '{print $2}')
+        FW_STATUS=$(echo ${InitialDriveList[$SN]} | awk -F ";" '{print $4}')
+        ProductFamily=$(echo ${InitialDriveList[$SN]} | awk -F ";" '{print $5}')
+        DeviceStatus=$(echo ${InitialDriveList[$SN]} | awk -F ";" '{print $6}')
         FW="${ModelList["$Model"]}"
 
         # echo $Index, $Model, $FW_STATUS, $ProductFamily, $DeviceStatus, $FW
@@ -172,8 +190,8 @@ function update_drive_firmware()
                 FW_image=$(find ${FW}/*.bin)
                 echo "Using issdcm to load local FW image to drive ${SN}..."
                 nohup echo -n Y | issdcm -drive_index $Index -firmware_update $FW_image  > issdcm_${SN}.log &
-                #issdcm_pid=$!
-                Pids+=($!)
+                # issdcm_pid=$!
+                # Pids+=($!)
             else
                 if [[ $ProductFamily =~ $REGX_DCT ]]; then
                     echo "Using isdct to update REGX_DCT FW. For ${SN}..."
@@ -185,11 +203,11 @@ function update_drive_firmware()
                     echo "Using intelmas to update REGX_MAS FW. For ${SN}..."
                     nohup echo -n Y | intelmas load -intelssd ${SN} > issdcm_${SN}.log &
                 fi
-                Pids+=($!)
             fi
+            Pids+=($!)
 
             if [ "${DeviceStatus}" != "Healthy" ]; then
-                echo "WARNING: Abnormal drive status: ${DeviceStatus}, please check it, the drive FW update progress may fail." >> issdcm_${SN}.log
+                echo "WARNING: Abnormal drive status: ${InitialDriveList[$SN]}, please check it, the drive FW update progress may fail." >> issdcm_${SN}.log
             fi
 
             cat issdcm_${SN}.log | tee -a local_log.log
@@ -203,18 +221,30 @@ function update_drive_firmware()
         fi
     done
 
+}
+
+
+function chk_updating_count()
+{
+    sleep 2
     DriveUpdatingCnt=${#Pids[@]}
+    echo "Currently $DriveUpdatingCnt drives are updating FW..."
     while [ $DriveUpdatingCnt -gt 0 ]
     do
+        sleep 5
+        echo '--------------------------------------'
+        echo "Current Running Pids..."
         DriveUpdatingCnt=0
-        for pid in ${Pids[@]}
+        for pid in "${Pids[@]}"
         do
             pidCnt=$( ps -o pid | grep -c $pid )
             DriveUpdatingCnt=$(( $DriveUpdatingCnt + $pidCnt ))
+            echo -e "\tPid: $pid, associated process count: $pidCnt"
         done
         echo "$DriveUpdatingCnt drives updating FW"
-        sleep 10
     done
+    # read -p "Pause to check how many drives are updating fw..." -n1 -s
+
 }
 
 
@@ -234,9 +264,9 @@ function chk_reboot_needed()
 
     if [ $REBOOT_NEEDED == "YES" ]; then
         # read -p "Please reboot to verify the update" -n1 -s
-        read -p "Press any key to reboot the system..." -n1 -s
+        # read -p "Press any key to reboot the system..." -n1 -s
         init 6
-        exit
+        # exit
     fi
 
 }
@@ -298,6 +328,7 @@ done
 echo "================================================================================"
 echo "Updating drive firmwares..."
 update_drive_firmware
+chk_updating_count
 
 
 echo "================================================================================"
@@ -306,7 +337,7 @@ chk_reboot_needed
 
 
 #CheckFwStatus
-echo "================================================================================"
+echo -e "\n\n\n\n\n\n================================================================================"
 echo "Check final firmware status"
 make_pretty_log_header FW_version_status_at_the_end
 IdentifyDrives
@@ -324,12 +355,13 @@ do
 done
 
 
-echo "================================================================================"
-echo "Handle log file"
+
+# echo "================================================================================"
+# echo "Handle log file"
 log_handler
 
 
-read -p "End of the process, Hit ENTER to exit and shutdown" -n1 -s
+read -p "End of the process, Hit Enter to exit and shutdown" -n1 -s
 init 0
 
 
@@ -379,5 +411,12 @@ v 202.2: 2021/03/02
     intelmas is now mainly used to update FW for normal drives, issdct is depracated and we cannot find it from ark.intel.com.
     A more detailed log will be generated in log folder and more details will be shown on terminal while performing the process.
     Verified on production line.
+v 202.3: 2021/03/04
+    Resolve a bug to collect Pids of each updating drive.
+    If the need reboot key word is detected, a automatically reboot would be performed.
+    Add notice to show how to get or update code from Git Server
+    Intel released `DSG L9 FW control table_Mar2021_v0.3.xlsx`,
+        Ignore the NIC, RAID, etc
+        Support for SSDPE2KE032T8OS has been added in 202.2 with intelmas.
 
 }
