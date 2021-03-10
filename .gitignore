@@ -9,4 +9,5 @@ Docs/*
 !Docs/*.xlsx
 
 .idea
-utilities
+utilities/*
+log/*

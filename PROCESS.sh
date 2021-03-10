@@ -308,6 +308,11 @@ function process_started()
 
 
 
+#------------------------------------------------------------------------------------------------
+#                Flow Start
+#------------------------------------------------------------------------------------------------
+
+
 echo "================================================================================"
 echo "Getting standard drive firmware list"
 get_std_drive_firmware
@@ -365,6 +370,12 @@ read -p "End of the process, Hit Enter to exit and shutdown" -n1 -s
 init 0
 
 
+#------------------------------------------------------------------------------------------------
+#                Flow End
+#------------------------------------------------------------------------------------------------
+
+
+
 : <<'HISTORY'
 v101.0: Adding "SSDSC2BB150G7"="N2010121"
 v102.0: Adding SSDSC2KB240G7, FW=SCV10111 with issdcm support
@@ -380,43 +391,3 @@ v108.0: Moving drive list to separate file.
 v108.1: Removing line ending when parsing SSD_LIST.txt
 
 HISTORY
-
-function tool_versions(){
-    isdct: 
-        version: isdct-3.0.26.400-1.x86_64
-        download_url: 
-        note: depracated
-    intelmas: 
-        version: intelmas-1.5.113-0.x86_64
-        download_url: https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-
-        note: 
-    issdcm: 
-        version: issdcm-3.0.3-1.x86_64
-        download_url: provided by intel
-        note: to update firmware with specified firmware image
-    issdfut: 
-        version: 
-        download_url: 
-        note: need to use in a independent OS, not for this process.
-}
-
-function history (){
-v 201.0: 2020/12/11
-    Owner of this package has been transfered from Intel to MSL SW.
-    Add ProductFamily while detecting product list.
-    While updating FW, D5-P4618 series SSD would use isdct to update FW and the rest would use intelmas.
-v 201.1: 2021/01/28
-    Add check for drive status, if it is abnormal, record a abormal message in log file.
-v 202.2: 2021/03/02
-    intelmas is now mainly used to update FW for normal drives, issdct is depracated and we cannot find it from ark.intel.com.
-    A more detailed log will be generated in log folder and more details will be shown on terminal while performing the process.
-    Verified on production line.
-v 202.3: 2021/03/04
-    Resolve a bug to collect Pids of each updating drive.
-    If the need reboot key word is detected, a automatically reboot would be performed.
-    Add notice to show how to get or update code from Git Server
-    Intel released `DSG L9 FW control table_Mar2021_v0.3.xlsx`,
-        Ignore the NIC, RAID, etc
-        Support for SSDPE2KE032T8OS has been added in 202.2 with intelmas.
-
-}
