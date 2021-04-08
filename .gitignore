@@ -3,6 +3,8 @@
 *.LOG
 *.zip
 *.rpm
+*.bin
+
 
 Docs/*
 !Docs/*.md

@@ -187,9 +187,11 @@ function update_drive_firmware()
         if [ "$FW_STATUS" != "COMPLETE" ]; then
             if [ -d ${FW} ]; then
                 #FW_image=$(find ${Model}/*.bin)
-                FW_image=$(find ${FW}/*.bin)
-                echo "Using issdcm to load local FW image to drive ${SN}..."
-                nohup echo -n Y | issdcm -drive_index $Index -firmware_update $FW_image  > issdcm_${SN}.log &
+                FW_image=$(find firmware_image/${FW}/*.bin)
+                # echo "Using issdcm to load local FW image to drive ${SN}..."
+                # nohup echo -n Y | issdcm -drive_index $Index -firmware_update $FW_image  > issdcm_${SN}.log &
+                echo "Using intelmas to load local FW image to drive ${SN}..."
+                nohup echo -n Y | intelmas load –source ${FW_image} –intelssd ${Index}  > issdcm_${SN}.log &
                 # issdcm_pid=$!
                 # Pids+=($!)
             else
@@ -374,20 +376,3 @@ init 0
 #                Flow End
 #------------------------------------------------------------------------------------------------
 
-
-
-: <<'HISTORY'
-v101.0: Adding "SSDSC2BB150G7"="N2010121"
-v102.0: Adding SSDSC2KB240G7, FW=SCV10111 with issdcm support
-v103.0: Adding SSDSC2KB480G7, FW SCV10111; SSDPE2KX010T7, FW QDV10150
-v104.0: Adding SSDSC2BB240G7, FW N2010121, J11256-002
-v105.0: Adding SSDSC2KG480G7, FW SCV10111, J52602-000
-               SSDSC2BB240G7, FW N2010121, J11256-002
-v106.0: Adding SSDSCKJB480G7, FW N2010121, J27336-001
-v107.0: Adding SSDSC2KB960G7, FW SCV10111, J52619-000
-v108.0: Moving drive list to separate file. 
-        For updates using issdcm, use single FW folder instead of model folder
-    Performing parallel updates
-v108.1: Removing line ending when parsing SSD_LIST.txt
-
-HISTORY

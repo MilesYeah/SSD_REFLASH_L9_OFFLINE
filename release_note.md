@@ -1,7 +1,9 @@
 # Release notice
 
 You will need git to get the latest code from SW lab server through below command.
-Command: `git pull origin master`
+* Command to update: `git pull origin master`
+* Command to clone: `git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git`
+
 
 
 ## `Must read`
@@ -10,9 +12,12 @@ Command: `git pull origin master`
    1. Be sure you have checked tool versions in defined in below `tool_versions`.
       1. If the tool versions don't match the definations, update the tool accordingly.
    2. Check below `history` to get the latest change information.
-   3. Replace the whole package in the real execution environment, actually you can clone or update the code directly from the execution environment.
+   3. Replace the whole package in the real execution environment, actually you can clone or update the code directly in the execution environment.
    4. Be sure the `SSD_LIST.txt` is generated and updated strictly base on `DSG L9 FW control table` from intel.
-   5. Be sure any update or deletion of drive FW image are done.
+   5. Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in `folder firmware_image`.
+      1. When new FW image is provided, create a folder named after firmware version, extract the firmware package and copy all the content from the extracted package to the newly created folder.
+      2. If a standalone FW image is depracated, remove the folder from firmware_image.
+      3. Make some note if possible.
 
 
 
@@ -33,19 +38,26 @@ Command: `git pull origin master`
 2. intelmas: 
    1. version: intelmas-1.5.113-0.x86_64
    2. download_url: https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-
-   3. note: 
+   3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
 3. issdcm: 
    1. version: issdcm-3.0.3-1.x86_64
    2. download_url: provided by intel
-   3. note: to update firmware with specified firmware image
+   3. note: 
+      1. Previously it is mainly to update firmware with specified firmware image
+      2. Use intelmas to load standalone firmware from v203.1, will depracate isdcm if intelmas works fine.
 4. issdfut: 
-   1. version: 
-   2. download_url: 
+   1. version: NA
+   2. download_url: NA
    3. note: need to use in a independent OS, not for this process.
 
 
 
 ## history
+
+v 203.1: 2021/04/07
+1. P4800X and P4801X series now needs firmware E2010487, use intelmas to load standalone firmware.
+2. Firmware image files are now sotred in folder firmware_image, add folder E2010487 in firmware_image folder.
+
 
 v 202.4: 2021/03/10
 1. Move tool version definations and history to here per PE's requests.
@@ -60,13 +72,16 @@ v 202.3: 2021/03/04
    1. Ignore the NIC, RAID, etc
    2. Support for SSDPE2KE032T8OS has been added in 202.2 with intelmas.
 
+
 v 202.2: 2021/03/02
 1. intelmas is now mainly used to update FW for normal drives, issdct is depracated and we cannot find it from ark.intel.com.
 2. A more detailed log will be generated in log folder and more details will be shown on terminal while performing the process.
 3. Verified on production line.
 
+
 v 201.1: 2021/01/28
 1. Add check for drive status, if it is abnormal, record a abormal message in log file.
+
 
 v 201.0: 2020/12/11
 1. Owner of this package has been transfered from Intel to MSL SW.
@@ -169,20 +184,39 @@ v 201.0: 2020/12/11
 
 ## Brand new system setup
 
-1.	Hardware needed
-   1. Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.
+1.	Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.
 2. OS Setup
    1. Update isdct-* in EST/PROCESS to included isdct-3.0.17.
    2. Install Linux using EST install process.
    3. Add contents of `SSD_REFLASH` to `/TEST` replacing PROCESS.sh with PROCESS.sh included.
    4. Copy all of the required drive FW images to `/TEST`.
-   5. Install issdcm rpm `rpm –ivh issdcm-*x86_64.rpm`.
-   6. Install intelmas rpm `rpm –ivh intemmas-*x86_64.rpm`.
-   7. Install issdct rpm `rpm –ivh issdct-*x86_64.rpm`.
+   5. Install issdcm rpm: `rpm –ivh issdcm-*x86_64.rpm`.
+   6. Install intelmas rpm: `rpm –ivh intemmas-*x86_64.rpm`.
+   7. Install issdct rpm: `rpm –ivh issdct-*x86_64.rpm`.
 3. SSD Reflash
    1. Install target SSD's.
    2. Power up the system.
    3. Update script will run automatically.
    4. Reboot system when prompted to reboot, now the reboot will be executed automatically.
    5. Verify all target drives status shown as `COMPLETE` with expected FW version.
-   6. Log file captured in `log` folder in server as `./log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log`
+   6. Log file captured in `log` folder in server as `/TEST/log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log`
+
+
+
+## Intel history
+
+: <<'HISTORY'
+v101.0: Adding "SSDSC2BB150G7"="N2010121"
+v102.0: Adding SSDSC2KB240G7, FW=SCV10111 with issdcm support
+v103.0: Adding SSDSC2KB480G7, FW SCV10111; SSDPE2KX010T7, FW QDV10150
+v104.0: Adding SSDSC2BB240G7, FW N2010121, J11256-002
+v105.0: Adding SSDSC2KG480G7, FW SCV10111, J52602-000
+               SSDSC2BB240G7, FW N2010121, J11256-002
+v106.0: Adding SSDSCKJB480G7, FW N2010121, J27336-001
+v107.0: Adding SSDSC2KB960G7, FW SCV10111, J52619-000
+v108.0: Moving drive list to separate file. 
+        For updates using issdcm, use single FW folder instead of model folder
+    Performing parallel updates
+v108.1: Removing line ending when parsing SSD_LIST.txt
+
+HISTORY

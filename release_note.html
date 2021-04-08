@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:///c:\Users\robert.ye\.vscode-insiders\extensions\shd101wyy.markdown-preview-enhanced-0.5.16\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      <link rel="stylesheet" href="file:///c:\Users\robert.ye\.vscode-insiders\extensions\shd101wyy.markdown-preview-enhanced-0.5.17\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
       
       
       
@@ -263,8 +263,11 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="mume markdown-preview  ">
       <h1 class="mume-header" id="release-notice">Release notice</h1>
 
-<p>You will need git to get the latest code from SW lab server through below command.<br>
-Command: <code>git pull origin master</code></p>
+<p>You will need git to get the latest code from SW lab server through below command.</p>
+<ul>
+<li>Command to update: <code>git pull origin master</code></li>
+<li>Command to clone: <code>git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git</code></li>
+</ul>
 <h2 class="mume-header" id="must-read"><code>Must read</code></h2>
 
 <ol>
@@ -277,9 +280,9 @@ Command: <code>git pull origin master</code></p>
 </ol>
 </li>
 <li>Check below <code>history</code> to get the latest change information.</li>
-<li>Replace the whole package in the real execution environment, actually you can clone or update the code directly from the execution environment.</li>
+<li>Replace the whole package in the real execution environment, actually you can clone or update the code directly in the execution environment.</li>
 <li>Be sure the <code>SSD_LIST.txt</code> is generated and updated strictly base on <code>DSG L9 FW control table</code> from intel.</li>
-<li>Be sure any update or deletion of drive FW image are done.</li>
+<li>Be sure any update or deletion of drive FW image are done, the firmware image files are now stored in <code>folder firmware_image</code>.</li>
 </ol>
 </li>
 </ol>
@@ -309,14 +312,19 @@ Command: <code>git pull origin master</code></p>
 <ol>
 <li>version: intelmas-1.5.113-0.x86_64</li>
 <li>download_url: <a href="https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-">https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-</a></li>
-<li>note:</li>
+<li>note: Currently, it is mainly used to get drive FW updated.</li>
 </ol>
 </li>
 <li>issdcm:
 <ol>
 <li>version: issdcm-3.0.3-1.x86_64</li>
 <li>download_url: provided by intel</li>
-<li>note: to update firmware with specified firmware image</li>
+<li>note:
+<ol>
+<li>Previously it is mainly to update firmware with specified firmware image</li>
+<li>Use intelmas to load standalone firmware from v202.5</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>issdfut:
@@ -329,6 +337,10 @@ Command: <code>git pull origin master</code></p>
 </ol>
 <h2 class="mume-header" id="history">history</h2>
 
+<p>v 202.5: 2021/04/07</p>
+<ol>
+<li>P4800X and P4801X series now needs firmware E2010487, use intelmas to load standalone firmware.</li>
+</ol>
 <p>v 202.4: 2021/03/10</p>
 <ol>
 <li>Move tool version definations and history to here per PE&apos;s requests.</li>
@@ -475,17 +487,16 @@ d-<span class="token operator">--</span>-<span class="token operator">-</span>  
 <h2 class="mume-header" id="brand-new-system-setup">Brand new system setup</h2>
 
 <ol>
-<li>Hardware needed</li>
-<li>Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.</li>
+<li>Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.</li>
 <li>OS Setup
 <ol>
 <li>Update isdct-* in EST/PROCESS to included isdct-3.0.17.</li>
 <li>Install Linux using EST install process.</li>
 <li>Add contents of <code>SSD_REFLASH</code> to <code>/TEST</code> replacing <a href="http://PROCESS.sh">PROCESS.sh</a> with <a href="http://PROCESS.sh">PROCESS.sh</a> included.</li>
 <li>Copy all of the required drive FW images to <code>/TEST</code>.</li>
-<li>Install issdcm rpm <code>rpm &#x2013;ivh issdcm-*x86_64.rpm</code>.</li>
-<li>Install intelmas rpm <code>rpm &#x2013;ivh intemmas-*x86_64.rpm</code>.</li>
-<li>Install issdct rpm <code>rpm &#x2013;ivh issdct-*x86_64.rpm</code>.</li>
+<li>Install issdcm rpm: <code>rpm &#x2013;ivh issdcm-*x86_64.rpm</code>.</li>
+<li>Install intelmas rpm: <code>rpm &#x2013;ivh intemmas-*x86_64.rpm</code>.</li>
+<li>Install issdct rpm: <code>rpm &#x2013;ivh issdct-*x86_64.rpm</code>.</li>
 </ol>
 </li>
 <li>SSD Reflash
@@ -495,10 +506,26 @@ d-<span class="token operator">--</span>-<span class="token operator">-</span>  
 <li>Update script will run automatically.</li>
 <li>Reboot system when prompted to reboot, now the reboot will be executed automatically.</li>
 <li>Verify all target drives status shown as <code>COMPLETE</code> with expected FW version.</li>
-<li>Log file captured in <code>log</code> folder in server as <code>./log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log</code></li>
+<li>Log file captured in <code>log</code> folder in server as <code>/TEST/log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log</code></li>
 </ol>
 </li>
 </ol>
+<h2 class="mume-header" id="intel-history">Intel history</h2>
+
+<p>: &lt;&lt;&apos;HISTORY&apos;<br>
+v101.0: Adding &quot;SSDSC2BB150G7&quot;=&quot;N2010121&quot;<br>
+v102.0: Adding SSDSC2KB240G7, FW=SCV10111 with issdcm support<br>
+v103.0: Adding SSDSC2KB480G7, FW SCV10111; SSDPE2KX010T7, FW QDV10150<br>
+v104.0: Adding SSDSC2BB240G7, FW N2010121, J11256-002<br>
+v105.0: Adding SSDSC2KG480G7, FW SCV10111, J52602-000<br>
+SSDSC2BB240G7, FW N2010121, J11256-002<br>
+v106.0: Adding SSDSCKJB480G7, FW N2010121, J27336-001<br>
+v107.0: Adding SSDSC2KB960G7, FW SCV10111, J52619-000<br>
+v108.0: Moving drive list to separate file.<br>
+For updates using issdcm, use single FW folder instead of model folder<br>
+Performing parallel updates<br>
+v108.1: Removing line ending when parsing SSD_LIST.txt</p>
+<p>HISTORY</p>
 
       </div>
       
