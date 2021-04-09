@@ -4,6 +4,7 @@
 *.zip
 *.rpm
 *.bin
+!firmware_image/*/*.bin
 
 
 Docs/*
