@@ -188,10 +188,11 @@ function update_drive_firmware()
             if [ -d ${FW} ]; then
                 #FW_image=$(find ${Model}/*.bin)
                 FW_image=$(find firmware_image/${FW}/*.bin)
-                # echo "Using issdcm to load local FW image to drive ${SN}..."
-                # nohup echo -n Y | issdcm -drive_index $Index -firmware_update $FW_image  > issdcm_${SN}.log &
-                echo "Using intelmas to load local FW image to drive ${SN}..."
-                nohup echo -n Y | intelmas load –source ${FW_image} –intelssd ${Index}  > issdcm_${SN}.log &
+                echo "Using issdcm to load local FW image to drive ${SN}..."
+                nohup echo -n Y | issdcm -drive_index $Index -firmware_update $FW_image  > issdcm_${SN}.log &
+                # echo "Using intelmas to load local FW image to drive ${SN}..."
+                # nohup echo -n Y | intelmas load –source ${FW_image} –intelssd ${Index}  > issdcm_${SN}.log &
+
                 # issdcm_pid=$!
                 # Pids+=($!)
             else

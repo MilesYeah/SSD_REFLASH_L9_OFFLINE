@@ -6,19 +6,19 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 
-## `Must read`
-1. Be sure your system is connected to MiTAC office network.
+## `Must read on each release`
+1. Be sure your system is connected to MiTAC office network, so the code update can be downloaded through Git.
 2. After getting new version package, below actions need to be done:
    1. Be sure you have checked tool versions in defined in below `tool_versions`.
       1. If the tool versions don't match the definations, update the tool accordingly.
    2. Check below `history` to get the latest change information.
-   3. Replace the whole package in the real execution environment, actually you can clone or update the code directly in the execution environment.
+   3. Replace the whole package in production environment, actually you can clone or update the code directly in  environment.
    4. Be sure the `SSD_LIST.txt` is generated and updated strictly base on `DSG L9 FW control table` from intel.
    5. Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in `folder firmware_image`.
       1. When new FW image is provided, create a folder named after firmware version, extract the firmware package and copy all the content from the extracted package to the newly created folder.
       2. If a standalone FW image is depracated, remove the folder from firmware_image.
       3. Make some note if possible.
-
+3. Please commit issues if any, and send me the log files after verification.
 
 
 ## Running Environment
@@ -30,29 +30,42 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 
-## tool_versions
-1. isdct: 
-   1. version: isdct-3.0.26.400-1.x86_64
-   2. download_url: 
-   3. note: depracated
-2. intelmas: 
-   1. version: intelmas-1.5.113-0.x86_64
-   2. download_url: https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-
+## Tool Versions
+1. intelmas: 
+   1. version: intelmas-1.7.130-0.x86_64
+   2. download_url: https://downloadcenter.intel.com/download/30379/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-
    3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
-3. issdcm: 
+2. issdcm: 
    1. version: issdcm-3.0.3-1.x86_64
    2. download_url: provided by intel
    3. note: 
-      1. Previously it is mainly to update firmware with specified firmware image
-      2. Use intelmas to load standalone firmware from v203.1, will depracate isdcm if intelmas works fine.
-4. issdfut: 
+      1. Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on `Tue 4/13/2021 10:38 AM` `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr`
+3. isdct: 
+   1. version: isdct-3.0.26.400-1.x86_64
+   2. download_url: 
+   3. note: `depracated`
+<!-- 4. issdfut: 
    1. version: NA
    2. download_url: NA
-   3. note: need to use in a independent OS, not for this process.
+   3. note: need to use in a independent OS, not for this process. -->
 
 
 
-## history
+## History
+
+
+v 204.1: 2021/05/06
+1. `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 May` has been released, and there are 3 updates to SSDs.
+   1. IntelMAS needs a update to version `intelmas-1.7.130-0.x86_64`, so the 3 SSDs get expected update.
+
+
+
+v 203.2: 2021/04/13
+1. PE Brady reported E2010487 cannot be updated through intelmas and he has successfully updated the firmware through isdcm on P4800x. 
+   1. On `L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr`, Intel Jonny confirmed standalone FW image can be loaded through isdcm. 
+   2. Switch back to isdcm instead of intelmas.
+
+
 
 v 203.1: 2021/04/07
 1. P4800X and P4801X series now needs firmware E2010487, use intelmas to load standalone firmware.

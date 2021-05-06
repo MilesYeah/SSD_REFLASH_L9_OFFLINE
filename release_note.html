@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:///c:\Users\robert.ye\.vscode-insiders\extensions\shd101wyy.markdown-preview-enhanced-0.5.17\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      <link rel="stylesheet" href="file:///c:\Users\robert.ye\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.5.18\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
       
       
       
@@ -268,10 +268,10 @@ pre[data-line] .line-highlight[data-end]:after {
 <li>Command to update: <code>git pull origin master</code></li>
 <li>Command to clone: <code>git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git</code></li>
 </ul>
-<h2 class="mume-header" id="must-read"><code>Must read</code></h2>
+<h2 class="mume-header" id="must-read-on-each-release"><code>Must read on each release</code></h2>
 
 <ol>
-<li>Be sure your system is connected to MiTAC office network.</li>
+<li>Be sure your system is connected to MiTAC office network, so the code update can be downloaded through Git.</li>
 <li>After getting new version package, below actions need to be done:
 <ol>
 <li>Be sure you have checked tool versions in defined in below <code>tool_versions</code>.
@@ -280,7 +280,7 @@ pre[data-line] .line-highlight[data-end]:after {
 </ol>
 </li>
 <li>Check below <code>history</code> to get the latest change information.</li>
-<li>Replace the whole package in the real execution environment, actually you can clone or update the code directly in the execution environment.</li>
+<li>Replace the whole package in production environment, actually you can clone or update the code directly in  environment.</li>
 <li>Be sure the <code>SSD_LIST.txt</code> is generated and updated strictly base on <code>DSG L9 FW control table</code> from intel.</li>
 <li>Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in <code>folder firmware_image</code>.
 <ol>
@@ -291,6 +291,7 @@ pre[data-line] .line-highlight[data-end]:after {
 </li>
 </ol>
 </li>
+<li>Please commit issues if any, and send me the log files after verification.</li>
 </ol>
 <h2 class="mume-header" id="running-environment">Running Environment</h2>
 
@@ -304,20 +305,13 @@ pre[data-line] .line-highlight[data-end]:after {
 </ol>
 </li>
 </ol>
-<h2 class="mume-header" id="tool_versions">tool_versions</h2>
+<h2 class="mume-header" id="tool-versions">Tool Versions</h2>
 
 <ol>
-<li>isdct:
-<ol>
-<li>version: isdct-3.0.26.400-1.x86_64</li>
-<li>download_url:</li>
-<li>note: depracated</li>
-</ol>
-</li>
 <li>intelmas:
 <ol>
-<li>version: intelmas-1.5.113-0.x86_64</li>
-<li>download_url: <a href="https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-">https://downloadcenter.intel.com/download/30259/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-</a></li>
+<li>version: intelmas-1.7.130-0.x86_64</li>
+<li>download_url: <a href="https://downloadcenter.intel.com/download/30379/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-">https://downloadcenter.intel.com/download/30379/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-</a></li>
 <li>note: Currently, it is mainly to get drive FW updated with the versions inside the tool.</li>
 </ol>
 </li>
@@ -327,22 +321,38 @@ pre[data-line] .line-highlight[data-end]:after {
 <li>download_url: provided by intel</li>
 <li>note:
 <ol>
-<li>Previously it is mainly to update firmware with specified firmware image</li>
-<li>Use intelmas to load standalone firmware from v203.1, will depracate isdcm if intelmas works fine.</li>
+<li>Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on <code>Tue 4/13/2021 10:38 AM</code> <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr</code></li>
 </ol>
 </li>
 </ol>
 </li>
-<li>issdfut:
+<li>isdct:
 <ol>
-<li>version: NA</li>
-<li>download_url: NA</li>
-<li>note: need to use in a independent OS, not for this process.</li>
+<li>version: isdct-3.0.26.400-1.x86_64</li>
+<li>download_url:</li>
+<li>note: <code>depracated</code></li>
 </ol>
 </li>
 </ol>
-<h2 class="mume-header" id="history">history</h2>
+<h2 class="mume-header" id="history">History</h2>
 
+<p>v 204.1: 2021/05/06</p>
+<ol>
+<li><code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 May</code> has been released, and there are 3 updates to SSDs.
+<ol>
+<li>IntelMAS needs a update to version <code>intelmas-1.7.130-0.x86_64</code>, so the 3 SSDs get expected update.</li>
+</ol>
+</li>
+</ol>
+<p>v 203.2: 2021/04/13</p>
+<ol>
+<li>PE Brady reported E2010487 cannot be updated through intelmas and he has successfully updated the firmware through isdcm on P4800x.
+<ol>
+<li>On <code>L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr</code>, Intel Jonny confirmed standalone FW image can be loaded through isdcm.</li>
+<li>Switch back to isdcm instead of intelmas.</li>
+</ol>
+</li>
+</ol>
 <p>v 203.1: 2021/04/07</p>
 <ol>
 <li>P4800X and P4801X series now needs firmware E2010487, use intelmas to load standalone firmware.</li>
