@@ -13,6 +13,10 @@ REGX_FUT="(X18-M|X25-M|X25-E)"
 #REGX_MAS="()"
 
 
+VERSION_INTELMAS="1.7.130"
+VERSION_ISDCT="3.0.26.400"
+VERSION_ISDCM="3.0.3"
+
 # store required fw version
 declare -A ModelList=()
 # parse drive list at the beginning: "$Index,$ModelNumber,$Firmware,$FW_STATUS,$ProductFamily"
@@ -84,6 +88,30 @@ function make_pretty_log_header()
     echo "-------------------------------------------------------------------------------------" >> local_log.log
     echo $1 >> local_log.log
 }
+
+
+
+function check_tool_version()
+{
+    rpm -qa > app_list
+    if [ `grep -i intelmas app_list | grep -c "${VERSION_INTELMAS}"` -lt 1 ]; then
+        echo "intelmas version: `grep -i intelmas app_list`"
+        read -p "Unexpected intelmas version, please update it..."
+    fi
+
+    if [ `grep -i isdct app_list | grep -c "${VERSION_ISDCT}"` -lt 1 ]; then
+        echo "isdct version: `grep -i isdct app_list`"
+        read -p "Unexpected isdct version, please update it..."
+    fi
+
+    if [ `grep -i isdcm app_list | grep -c "${VERSION_ISDCM}"` -lt 1 ]; then
+        echo "isdcm version: `grep -i isdcm app_list`"
+        read -p "Unexpected isdcm version, please update it..."
+    fi
+
+}
+
+
 
 function get_std_drive_firmware()
 {
@@ -184,6 +212,7 @@ function update_drive_firmware()
 
         # echo $Index, $Model, $FW_STATUS, $ProductFamily, $DeviceStatus, $FW
 
+        echo "--> Updating firmware for: ${SN}" >> issdcm_${SN}.log
         if [ "$FW_STATUS" != "COMPLETE" ]; then
             if [ -d ${FW} ]; then
                 #FW_image=$(find ${Model}/*.bin)
@@ -210,21 +239,23 @@ function update_drive_firmware()
             Pids+=($!)
 
             if [ "${DeviceStatus}" != "Healthy" ]; then
-                echo "WARNING: Abnormal drive status: ${InitialDriveList[$SN]}, please check it, the drive FW update progress may fail." >> issdcm_${SN}.log
+                echo "ERROR: Abnormal drive status: ${InitialDriveList[$SN]}, please check it, the drive FW update progress may fail." >> issdcm_${SN}.log
             fi
 
-            cat issdcm_${SN}.log | tee -a local_log.log
             if [ $(grep -c "reboot the system" issdcm_${SN}.log) -gt 0 ]; then
                 REBOOT_NEEDED=YES
                 echo -e "Reboot is needed for ${SN}"
             fi
 
         else
-            rm -f issdcm_${SN}.log
+            echo -e "\tCurrent drive contains the expected firmware version." >> issdcm_${SN}.log
+            # rm -f issdcm_${SN}.log
         fi
+        cat issdcm_${SN}.log | tee -a local_log.log
     done
 
 }
+
 
 
 function chk_updating_count()
@@ -257,17 +288,19 @@ function chk_reboot_needed()
     do
         echo $SN
         if [ -f issdcm_${SN}.log ]; then
-            cat issdcm_${SN}.log
+            # cat issdcm_${SN}.log
             if [ $(grep -c "reboot the system" issdcm_${SN}.log) -gt 0 ]; then
                 REBOOT_NEEDED=YES
                 echo -e "\tReboot is needed for ${SN}"
             fi
+            rm -f issdcm_${SN}.log
         fi
     done
 
     if [ $REBOOT_NEEDED == "YES" ]; then
         # read -p "Please reboot to verify the update" -n1 -s
         # read -p "Press any key to reboot the system..." -n1 -s
+        sleep 2
         init 6
         # exit
     fi
@@ -315,6 +348,10 @@ function process_started()
 #                Flow Start
 #------------------------------------------------------------------------------------------------
 
+echo "================================================================================"
+echo "Checking whether tool versions are expected"
+check_tool_version
+
 
 echo "================================================================================"
 echo "Getting standard drive firmware list"
@@ -335,6 +372,7 @@ done
 
 echo "================================================================================"
 echo "Updating drive firmwares..."
+make_pretty_log_header "Updating Firmware for each drive..."
 update_drive_firmware
 chk_updating_count
 

@@ -1,24 +1,52 @@
 # Release notice
 
 You will need git to get the latest code from SW lab server through below command.
-* Command to update: `git pull origin master`
-* Command to clone: `git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git`
+
+* Command to update: **git pull origin master**
+* Command to clone: **git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git**
 
 
 
-## `Must read on each release`
+<!-- ## Developer actions on each release
+1. Make a copy of SSD_LIST.txt from **\\10.86.8.50\Share\TEST\FA\Yu\SSD_REFLASH_L9_OFFLINE.203.1**
+2. Add **DSG L9 FW control table** in Doc folder.
+3. Generate release_note.html before commit. 
+-->
+
+
+
+## **Must read on each release**
 1. Be sure your system is connected to MiTAC office network, so the code update can be downloaded through Git.
 2. After getting new version package, below actions need to be done:
-   1. Be sure you have checked tool versions in defined in below `tool_versions`.
+   1. Be sure you have checked tool versions in defined in below **tool_versions**.
       1. If the tool versions don't match the definations, update the tool accordingly.
-   2. Check below `history` to get the latest change information.
+   2. Check section **history** to get the latest change note.
    3. Replace the whole package in production environment, actually you can clone or update the code directly in  environment.
-   4. Be sure the `SSD_LIST.txt` is generated and updated strictly base on `DSG L9 FW control table` from intel.
-   5. Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in `folder firmware_image`.
+   4. Be sure the **SSD_LIST.txt** is generated and updated strictly base on **DSG L9 FW control table** from intel.
+   5. Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in **folder firmware_image**.
       1. When new FW image is provided, create a folder named after firmware version, extract the firmware package and copy all the content from the extracted package to the newly created folder.
       2. If a standalone FW image is depracated, remove the folder from firmware_image.
       3. Make some note if possible.
 3. Please commit issues if any, and send me the log files after verification.
+
+
+## Warnning
+1. Below SSDs have `No Firmware Update Available`
+
+   | product_code    | mm_number | product_name                                                    |
+   | --------------- | --------- | --------------------------------------------------------------- |
+   | SSDPD21K375GA01 | 958883    | D4800X (375GB, NVMe 2.5inch)                                    |
+   | SSDPD21K750GA01 | 958884    | D4800X (750GB, NVMe 2.5inch)                                    |
+   | SSDPD21K015TA01 | 958885    | D4800X (1.5TB, NVMe 2.5inch)                                    |
+   | SSDPF2KX076TZ01 | 99A5DR    | SSD D7-P5510 Series (7.68TB, 2.5in PCIe 4.0 x4, 3D4, TLC)       |
+   | SSDPF2KX076TZOS | 99A5D1    | SSD D7-P5510 Series (7.68TB, 2.5in PCIe 4.0 x4, 3D4, TLC, OPAL) |
+   | SSDPF2KX038TZ01 | 99A5DP    | SSD D7-P5510 Series (3.84TB, 2.5in PCIe 4.0 x4, 3D4, TLC)       |
+   | SSDPF2KX038TZOS | 99A5CZ    | SSD D7-P5510 Series (3.84TB, 2.5in PCIe 4.0 x4, 3D4, TLC, OPAL) |
+   | SSDPF21Q016TB01 | 99A6PV    | Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)          |
+   | SSDPF21Q800GB01 | 99A6PT    | Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)          |
+   | SSDPF21Q400GB01 | 99A6PN    | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)          |
+
+
 
 
 ## Running Environment
@@ -32,71 +60,81 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## Tool Versions
 1. intelmas: 
-   1. version: intelmas-1.7.130-0.x86_64
-   2. download_url: https://downloadcenter.intel.com/download/30379/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-
+   1. version: intelmas-1.8.140-0.x86_64.rpm
+   2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
    3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
 2. issdcm: 
    1. version: issdcm-3.0.3-1.x86_64
-   2. download_url: provided by intel
+   2. download_url, provided by intel 
    3. note: 
-      1. Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on `Tue 4/13/2021 10:38 AM` `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr`
-3. isdct: 
+      1. Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on **Tue 4/13/2021 10:38 AM** **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr**
+3. isdct: depracated
    1. version: isdct-3.0.26.400-1.x86_64
-   2. download_url: 
-   3. note: `depracated`
+   2. [download_url]()
+   3. note: **depracated**
 <!-- 4. issdfut: 
    1. version: NA
-   2. download_url: NA
+   2. [download_url] NA
    3. note: need to use in a independent OS, not for this process. -->
 
 
 
 ## History
 
+#### version 206.1: 2021/06/02
+1. `intelmas-1.8` is required as `DSG L9 FW control table_Jun2021.xlsx` is released, in which several new SSD series were added that need `intelmas-1.8`.
+2. A warning is that SSDs in above warning section have `No Firmware Update Available`, 
+   1. a Email has been sent to Intel for comfirmation about how to handle the FW when they are not expected.
 
-v 204.1: 2021/05/06
-1. `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 May` has been released, and there are 3 updates to SSDs.
-   1. IntelMAS needs a update to version `intelmas-1.7.130-0.x86_64`, so the 3 SSDs get expected update.
+
+#### version 205.1: 2021/05/13
+1. Add function to check versions for intelmas, isdct, isdcm, if the tool version doesn't match the required, the process would pause running and prompt that the tool needs a update.
 
 
 
-v 203.2: 2021/04/13
+#### version 204.1: 2021/05/06
+1. **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 May** has been released, and there are 3 updates to SSDs.
+   1. IntelMAS needs a update to version **intelmas-1.7.130-0.x86_64**, so the 3 SSDs get expected update.
+
+
+
+#### version 203.2: 2021/04/13
 1. PE Brady reported E2010487 cannot be updated through intelmas and he has successfully updated the firmware through isdcm on P4800x. 
-   1. On `L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr`, Intel Jonny confirmed standalone FW image can be loaded through isdcm. 
+   1. On **L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr**, Intel Jonny confirmed standalone FW image can be loaded through isdcm. 
    2. Switch back to isdcm instead of intelmas.
 
 
 
-v 203.1: 2021/04/07
+#### version 203.1: 2021/04/07
 1. P4800X and P4801X series now needs firmware E2010487, use intelmas to load standalone firmware.
 2. Firmware image files are now sotred in folder firmware_image, add folder E2010487 in firmware_image folder.
 
 
-v 202.4: 2021/03/10
+#### version 202.4: 2021/03/10
 1. Move tool version definations and history to here per PE's requests.
 2. Refactor package folder structure.
 
 
-v 202.3: 2021/03/04
+#### version 202.3: 2021/03/04
 1. Resolve a bug to collect Pids of each updating drive.
 2. If the need reboot key word is detected, a automatically reboot would be performed.
 3. Add notice to show how to get or update code from Git Server
-4. Intel released `DSG L9 FW control table_Mar2021_v0.3.xlsx`,
+4. Intel released **DSG L9 FW control table_Mar2021_v0.3.xlsx**,
    1. Ignore the NIC, RAID, etc
    2. Support for SSDPE2KE032T8OS has been added in 202.2 with intelmas.
 
 
-v 202.2: 2021/03/02
+#### version 202.2: 2021/03/02
 1. intelmas is now mainly used to update FW for normal drives, issdct is depracated and we cannot find it from ark.intel.com.
 2. A more detailed log will be generated in log folder and more details will be shown on terminal while performing the process.
 3. Verified on production line.
 
 
-v 201.1: 2021/01/28
+#### version 201.1: 2021/01/28
 1. Add check for drive status, if it is abnormal, record a abormal message in log file.
 
 
-v 201.0: 2020/12/11
+#### version 201.0: 2020/12/11
 1. Owner of this package has been transfered from Intel to MSL SW.
 2. Add ProductFamily while detecting product list.
 3. While updating FW, D5-P4618 series SSD would use isdct to update FW and the rest would use intelmas.
@@ -106,13 +144,14 @@ v 201.0: 2020/12/11
 ## For first time user
 1. Install Git(Open Source) through installation guides on site https://git-scm.com/downloads. 
    1. Download the latest git version base on your OS and install it.
-   2. Be sure check the item to `add git to PATH` while installing it.
+   2. Be sure check the item to **add git to PATH** while installing it.
    3. Git is a open source software and you don't need to worry that someone would charge any fees from you.
 2. Open a cmd/shell terminal to execute following commands to configure your basic information, replace name and email address to your real information
-   * `git config --global user.name "robert"`
-   * `git config --global user.email "robert.ye@mic.com.tw"`
+   * **git config --global user.name "yourName"**
+   * **git config --global user.email "yourEmail@mic.com.tw"**
 3. Now your git environment is well set.
 4. A sample to check whether git is well installed. Below command prompt shows windows git version 2.13.2 is installed.
+
     ```bat
     Windows PowerShell
     Copyright (C) Microsoft Corporation. All rights reserved.
@@ -127,14 +166,15 @@ v 201.0: 2020/12/11
 ## Get the latest code
 
 ### Get the latest code through command line
-1. Be sure that you have successfully finished the steps in `For first time user`
+1. Be sure that you have successfully finished the steps in **For first time user**
 2. Open a cmd/shell terminal.
 3. If you want to get the code from a clean system, execute following command
-   * `git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git`
+   * **git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git**
 4. If your system already cloned the code and you want to get the latest code from server, execute following command
-   * `git pull origin master`
+   * **git pull origin master**
 5. While clone or pull from server, you will need to input the password for current reporistory, contact the repository maintainer to get the password.
 6. A simple to show how to colne the code from server.
+
     ```powershell
     PS F:\Development> cd .\temp\
     PS F:\Development\temp> ls
@@ -201,23 +241,23 @@ v 201.0: 2020/12/11
 2. OS Setup
    1. Update isdct-* in EST/PROCESS to included isdct-3.0.17.
    2. Install Linux using EST install process.
-   3. Add contents of `SSD_REFLASH` to `/TEST` replacing PROCESS.sh with PROCESS.sh included.
-   4. Copy all of the required drive FW images to `/TEST`.
-   5. Install issdcm rpm: `rpm –ivh issdcm-*x86_64.rpm`.
-   6. Install intelmas rpm: `rpm –ivh intemmas-*x86_64.rpm`.
-   7. Install issdct rpm: `rpm –ivh issdct-*x86_64.rpm`.
+   3. Add contents of **SSD_REFLASH** to **/TEST** replacing PROCESS.sh with PROCESS.sh included.
+   4. Copy all of the required drive FW images to **/TEST**.
+   5. Install issdcm rpm: **rpm –ivh issdcm-*x86_64.rpm**.
+   6. Install intelmas rpm: **rpm –ivh intemmas-*x86_64.rpm**.
+   7. Install issdct rpm: **rpm –ivh issdct-*x86_64.rpm**.
 3. SSD Reflash
    1. Install target SSD's.
    2. Power up the system.
    3. Update script will run automatically.
    4. Reboot system when prompted to reboot, now the reboot will be executed automatically.
-   5. Verify all target drives status shown as `COMPLETE` with expected FW version.
-   6. Log file captured in `log` folder in server as `/TEST/log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log`
+   5. Verify all target drives status shown as **COMPLETE** with expected FW version.
+   6. Log file captured in **log** folder in server as `/TEST/log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log`
 
 
 
 ## Intel history
-
+```
 : <<'HISTORY'
 v101.0: Adding "SSDSC2BB150G7"="N2010121"
 v102.0: Adding SSDSC2KB240G7, FW=SCV10111 with issdcm support
@@ -233,3 +273,14 @@ v108.0: Moving drive list to separate file.
 v108.1: Removing line ending when parsing SSD_LIST.txt
 
 HISTORY
+```
+
+
+
+## Ref
+* [Firmware Versions for Intel® Solid State Drives and Intel® Optane™ Memory](https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html)
+* []()
+* []()
+* []()
+* []()
+* []()
