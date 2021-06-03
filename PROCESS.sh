@@ -13,9 +13,9 @@ REGX_FUT="(X18-M|X25-M|X25-E)"
 #REGX_MAS="()"
 
 
-VERSION_INTELMAS="1.7.130"
+VERSION_INTELMAS="1.8.140"
 VERSION_ISDCT="3.0.26.400"
-VERSION_ISDCM="3.0.3"
+VERSION_ISSDCM="3.0.3"
 
 # store required fw version
 declare -A ModelList=()
@@ -104,9 +104,9 @@ function check_tool_version()
         read -p "Unexpected isdct version, please update it..."
     fi
 
-    if [ `grep -i isdcm app_list | grep -c "${VERSION_ISDCM}"` -lt 1 ]; then
-        echo "isdcm version: `grep -i isdcm app_list`"
-        read -p "Unexpected isdcm version, please update it..."
+    if [ `grep -i issdcm app_list | grep -c "${VERSION_ISSDCM}"` -lt 1 ]; then
+        echo "issdcm version: `grep -i issdcm app_list`"
+        read -p "Unexpected issdcm version, please update it..."
     fi
 
 }
