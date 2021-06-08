@@ -81,12 +81,13 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## History
 
-#### version 206.3: 2021/06/02
+#### version 206.4: 2021/06/028
 1. `intelmas-1.8` is required as `DSG L9 FW control table_Jun2021.xlsx` is released, in which several new SSD series were added that need `intelmas-1.8`.
 2. A warning is that SSDs in above warning section have `No Firmware Update Available`, 
    1. a Email has been sent to Intel for comfirmation about how to handle the FW when they are not expected.
    2. Reply from Intel **If the SSD show “No Firmware Update Available”, we don’t need to update it.  Once find SSD in this case don’t match the FW control table, you can report.**
 3. Fixed a bug to checking tool versions. This is a new feature to prevent unexpected tool version applied. 
+4. Add some better log recording.
 
 
 #### version 205.1: 2021/05/13

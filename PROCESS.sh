@@ -4,6 +4,14 @@ export PATH=$PATH:/sbin:/usr/sbin
 
 # https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html
 
+
+if [ -z $1 ]; then
+    DEBUG=FALSE
+else
+    DEBUG=TRUE
+fi
+
+
 # Enable extended globbing
 shopt -s extglob
 
@@ -51,6 +59,21 @@ function debug_quit()
     exit
 }
 
+
+
+function pauseToCheck(){
+    if [ -z $1 ]; then
+        msg="Debug point, Ctrl+C to quit..."
+    else
+        msg=$1
+    fi
+
+    read -p "${msg}" -n1 -s
+
+}
+
+
+
 function show_pass()
 {
     echo ""
@@ -65,6 +88,8 @@ function show_pass()
     echo ""
 
 }
+
+
 
 function show_fail()
 {
@@ -85,7 +110,16 @@ function show_fail()
 
 function make_pretty_log_header()
 {
-    echo "-------------------------------------------------------------------------------------" >> local_log.log
+    # $1 is log header message
+    # $2 is log header level, the smaller the more ---
+    if [[ $2 = "3" ]]; then
+        echo "------------------------------" >> local_log.log
+    elif [[ $2 = "2" ]]; then
+        echo "------------------------------------------------------------" >> local_log.log
+    else
+        echo "------------------------------------------------------------------------------------------" >> local_log.log
+    fi
+
     echo $1 >> local_log.log
 }
 
@@ -93,6 +127,10 @@ function make_pretty_log_header()
 
 function check_tool_version()
 {
+
+    echo "================================================================================"
+    echo "Checking whether tool versions are expected"
+
     rpm -qa > app_list
     if [ `grep -i intelmas app_list | grep -c "${VERSION_INTELMAS}"` -lt 1 ]; then
         echo "intelmas version: `grep -i intelmas app_list`"
@@ -115,6 +153,9 @@ function check_tool_version()
 
 function get_std_drive_firmware()
 {
+    echo "================================================================================"
+    echo "Getting standard drive firmware list"
+
     IFS=$'\n'
     for line in $(cat SSD_LIST.txt); do
         drive=$(echo $line | awk -F= '{print $1}')	
@@ -135,7 +176,8 @@ function get_std_drive_firmware()
 IdentifyDrives() {
     FW_STATUS="UNKNOWN"	
     IFS=$'\n'
-    make_pretty_log_header Detecting_Drive_firmwares
+    make_pretty_log_header Detecting_Drive_firmwares 2
+    date >> local_log.log
     for line in $(intelmas show -intelssd)
     do
         echo ${line} >> local_log.log
@@ -200,6 +242,11 @@ IdentifyDrives() {
 
 function update_drive_firmware()
 {
+    echo "================================================================================"
+    echo "Updating drive firmwares..."
+    make_pretty_log_header "Updating Firmware for each drive..." 2
+    date >> local_log.log
+
     #UpdateFW
     for SN in "${!InitialDriveList[@]}"
     do
@@ -248,10 +295,8 @@ function update_drive_firmware()
             fi
 
         else
-            echo -e "\tCurrent drive contains the expected firmware version." >> issdcm_${SN}.log
-            # rm -f issdcm_${SN}.log
+            echo -e "\tCurrent drive contains the expected firmware version..." >> issdcm_${SN}.log
         fi
-        cat issdcm_${SN}.log | tee -a local_log.log
     done
 
 }
@@ -284,6 +329,9 @@ function chk_updating_count()
 
 function chk_reboot_needed()
 {
+    echo "================================================================================"
+    echo "Checking whether a reboot is needed..."
+
     for SN in "${!InitialDriveList[@]}"
     do
         echo $SN
@@ -293,6 +341,8 @@ function chk_reboot_needed()
                 REBOOT_NEEDED=YES
                 echo -e "\tReboot is needed for ${SN}"
             fi
+
+            cat issdcm_${SN}.log | tee -a local_log.log
             rm -f issdcm_${SN}.log
         fi
     done
@@ -301,6 +351,11 @@ function chk_reboot_needed()
         # read -p "Please reboot to verify the update" -n1 -s
         # read -p "Press any key to reboot the system..." -n1 -s
         sleep 2
+
+        if [ $DEBUG == "TRUE" ]; then
+            pauseToCheck "After SSD FW programming, pause to check before reboot.."
+        fi
+
         init 6
         # exit
     fi
@@ -310,19 +365,19 @@ function chk_reboot_needed()
 
 function log_handler()
 {
-    make_pretty_log_header issdcm
+    make_pretty_log_header issdcm 2
     issdcm version >> local_log.log
 
-    make_pretty_log_header isdct
+    make_pretty_log_header isdct 2
     isdct version >> local_log.log
 
-    make_pretty_log_header intelmas
+    make_pretty_log_header intelmas 2
     intelmas version >> local_log.log
 
-    make_pretty_log_header issdfut
+    make_pretty_log_header issdfut 2
     # issdfut version >> local_log.log
 
-    make_pretty_log_header standard_firmware_list
+    make_pretty_log_header standard_firmware_list 2
     cat SSD_LIST.txt >> local_log.log
 
     mv local_log.log ${LOG_FILE}
@@ -348,20 +403,16 @@ function process_started()
 #                Flow Start
 #------------------------------------------------------------------------------------------------
 
-echo "================================================================================"
-echo "Checking whether tool versions are expected"
 check_tool_version
 
 
-echo "================================================================================"
-echo "Getting standard drive firmware list"
 get_std_drive_firmware
 
 
 #Find target drives
 echo "================================================================================"
 echo "Getting drive list under updating..."
-make_pretty_log_header FW_version_status_at_the_bigining
+make_pretty_log_header "FW version status at the beginning..."
 IdentifyDrives
 echo -e "\nSN;INDEX;MODEL;FW;STATUS;Family;Health" | tee -a local_log.log
 for SerialNumber in "${!InitialDriveList[@]}"
@@ -370,22 +421,19 @@ do
 done
 
 
-echo "================================================================================"
-echo "Updating drive firmwares..."
-make_pretty_log_header "Updating Firmware for each drive..."
 update_drive_firmware
+
+
 chk_updating_count
 
 
-echo "================================================================================"
-echo "Checking whether a reboot is needed..."
 chk_reboot_needed
 
 
 #CheckFwStatus
 echo -e "\n\n\n\n\n\n================================================================================"
 echo "Check final firmware status"
-make_pretty_log_header FW_version_status_at_the_end
+make_pretty_log_header "FW version status at the end..."
 IdentifyDrives
 echo -e "\nSN;INDEX;MODEL;FW;STATUS;Family;Health" | tee -a local_log.log
 for SN in "${!InitialDriveList[@]}"
