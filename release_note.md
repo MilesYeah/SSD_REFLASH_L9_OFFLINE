@@ -60,7 +60,7 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## Tool Versions
 1. intelmas: 
-   1. version: intelmas-1.8.140-0.x86_64.rpm
+   1. version: intelmas-1.9.147-0.x86_64
    2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
    3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
 2. issdcm: 
@@ -80,6 +80,30 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## History
+
+#### version 207: 2021/08/09
+1. **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug** was released, below drives need update.
+   | product_code    | mm_number | product_name                                                  | subsystem | fw_version | page_date |
+   | --------------- | --------- | ------------------------------------------------------------- | --------- | ---------- | --------- |
+   | SSDPE2KX010T801 | 959391    | P4510 (1TB, NVMe, 2.5inch)                                    | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KX020T801 | 959393    | P4510 (2TB, NVMe, 2.5inch)                                    | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KX040T801 | 959395    | SSD DC P4510 Series (4TB, NVMe, 2.5inch, 3D3, TLC)            | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KX080T801 | 959397    | SSD DC P4510 Series (8TB, NVMe, 2.5inch, 3D3, TLC)            | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KE016T801 | 978083    | P4610 (1.6TB, NVMe, 2.5 inch)                                 | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KE032T801 | 978084    | P4610 (3.2TB, NVMe, 2.5 inch)                                 | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KE064T801 | 978085    | P4610 (6.4TB, NVMe, 2.5 inch)                                 | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KE076T801 | 963520    | P4610 (7.68TB, NVMe, 2.5 inch)                                | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPECKE064T801 | 999CNK    | SSD DC P4618 Series ( 6.4TB, 1/2 Height PCIe 3.1 x8, 3D2, TLC | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPE2KE032T8OS | 984823    | SSD DC P4610 Series (3.2TB, 2.5in PCIe 3.1 x4, 3D2, TLC)      | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPEWKX153T801 | 999JJ2    | P4510 (15.36TB, Ruler)                                        | SSD       | VDV10182   | 2021/7/6  |
+   | SSDPF21Q016TB01 | 99A6PV    | Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
+   | SSDPF21Q800GB01 | 99A6PT    | Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
+   | SSDPF21Q400GB01 | 99A6PN    | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
+2. **intel-mas-cli-tool-linux-1-9** has been released, **VDV10182** and **L0310200** are in support list. So Intel MAS needs a update to version **1.9.147**
+3. Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment. 
+4. After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status.
+
+
 
 #### version 206.4: 2021/06/028
 1. `intelmas-1.8` is required as `DSG L9 FW control table_Jun2021.xlsx` is released, in which several new SSD series were added that need `intelmas-1.8`.

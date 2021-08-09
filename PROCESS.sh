@@ -21,7 +21,7 @@ REGX_FUT="(X18-M|X25-M|X25-E)"
 #REGX_MAS="()"
 
 
-VERSION_INTELMAS="1.8.140"
+VERSION_INTELMAS="1.9.147"
 VERSION_ISDCT="3.0.26.400"
 VERSION_ISSDCM="3.0.3"
 
@@ -113,11 +113,11 @@ function make_pretty_log_header()
     # $1 is log header message
     # $2 is log header level, the smaller the more ---
     if [[ $2 = "3" ]]; then
-        echo "------------------------------" >> local_log.log
+        echo -e "------------------------------\n" >> local_log.log
     elif [[ $2 = "2" ]]; then
-        echo "------------------------------------------------------------" >> local_log.log
+        echo -e "\n------------------------------------------------------------\n" >> local_log.log
     else
-        echo "------------------------------------------------------------------------------------------" >> local_log.log
+        echo -e "\n\n\n------------------------------------------------------------------------------------------\n" >> local_log.log
     fi
 
     echo $1 >> local_log.log
@@ -178,9 +178,10 @@ IdentifyDrives() {
     IFS=$'\n'
     make_pretty_log_header Detecting_Drive_firmwares 2
     date >> local_log.log
+    intelmas show -o json -intelssd >> local_log.log
     for line in $(intelmas show -intelssd)
     do
-        echo ${line} >> local_log.log
+        # echo ${line} >> local_log.log
         regx="^DeviceStatus :"
         if [[ $line =~ $regx ]]; then
             DeviceStatus=$(echo $line | awk '{print $3}')
@@ -363,6 +364,46 @@ function chk_reboot_needed()
 }
 
 
+function disconnect_drives() {
+    make_pretty_log_header "Drive mount info" 2
+
+    make_pretty_log_header "list drive block info before umount..." 3
+    lsblk >> local_log.log
+    boot_drive=`lsblk | grep boot | awk '{print substr($1,3,3)}'| uniq`
+    echo Got boot drive: $boot_drive >> local_log.log
+
+
+    make_pretty_log_header "umount drives.." 3
+    partitions=`lsblk -p | egrep -v "${boot_drive}|disk|NAME" | awk '{print substr($1, 3,10)}'`
+    echo ${partitions}
+    for drive in ${partitions}
+    do
+        echo umount drive: $drive >> local_log.log
+        umount $drive |  tee -a local_log.log
+    done
+
+    connt=0
+    driver_unloaded=false
+    while [ $count -lt 10 ]
+    do
+        echo "Unload NVME drivers..."
+
+        modprobe -r nvme
+        if [ $? -eq 0 ]; then
+            driver_unloaded=true
+            echo "Nvme driver are successfully removed..."
+            break
+        fi
+        sleep 2
+    done
+    echo "Driver unloading status: ${driver_unloaded}" >> local_log.log
+
+    make_pretty_log_header "list drive block info after umount..." 3
+    lsblk >> local_log.log
+
+}
+
+
 function log_handler()
 {
     make_pretty_log_header issdcm 2
@@ -449,13 +490,16 @@ do
 done
 
 
+disconnect_drives
+
 
 # echo "================================================================================"
 # echo "Handle log file"
 log_handler
 
-
-read -p "End of the process, Hit Enter to exit and shutdown" -n1 -s
+echo "End of the process, system will be shutdown in 6s, then you can remove the drives..."
+# read -p "End of the process, Hit Enter to exit and shutdown, then you can remove the drives..." -n1 -s
+sleep 6
 init 0
 
 
