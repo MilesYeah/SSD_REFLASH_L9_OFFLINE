@@ -81,6 +81,13 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## History
 
+
+#### version 207.1: 2021/08/13
+1. `L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug_V2.0` was released.
+2. Deleted SSD_LIST.txt incase any mistake was made by accident which would be caused by the SSD_LIST.txt file.
+
+
+
 #### version 207: 2021/08/09
 1. **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug** was released, below drives need update.
    | product_code    | mm_number | product_name                                                  | subsystem | fw_version | page_date |
@@ -101,7 +108,7 @@ You will need git to get the latest code from SW lab server through below comman
    | SSDPF21Q400GB01 | 99A6PN    | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
 2. **intel-mas-cli-tool-linux-1-9** has been released, **VDV10182** and **L0310200** are in support list. So Intel MAS needs a update to version **1.9.147**
 3. Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment. 
-4. After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status.
+4. After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.
 
 
 
@@ -266,10 +273,10 @@ You will need git to get the latest code from SW lab server through below comman
 
 1.	Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.
 2. OS Setup
-   1. Update isdct-* in EST/PROCESS to included isdct-3.0.17.
-   2. Install Linux using EST install process.
-   3. Add contents of **SSD_REFLASH** to **/TEST** replacing PROCESS.sh with PROCESS.sh included.
-   4. Copy all of the required drive FW images to **/TEST**.
+   1. Install Linux using EST install process.
+   2. Add contents of **SSD_REFLASH** to **/TEST** replacing PROCESS.sh with PROCESS.sh included.
+   3. Copy all of the required drive FW images to **/TEST/firmware_image**.
+   4. Install isdct rpm: **rpm –ivh isdct-*x86_64.rpm**.
    5. Install issdcm rpm: **rpm –ivh issdcm-*x86_64.rpm**.
    6. Install intelmas rpm: **rpm –ivh intemmas-*x86_64.rpm**.
    7. Install issdct rpm: **rpm –ivh issdct-*x86_64.rpm**.
@@ -306,7 +313,8 @@ HISTORY
 
 ## Ref
 * [Firmware Versions for Intel® Solid State Drives and Intel® Optane™ Memory](https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html)
-* []()
+* `\\10.86.8.50\Share\TEST\FA\Yu\SSD_REFLASH_L9_OFFLINE.206.4`
+* [Download Intel MAS](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
 * []()
 * []()
 * []()

@@ -138,12 +138,17 @@
 </ol></li>
 </ol>
 <h2 id="history">History</h2>
+<h4 id="version-207.1-20210813">version 207.1: 2021/08/13</h4>
+<ol type="1">
+<li><code>L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug_V2.0</code> was released.</li>
+<li>Deleted SSD_LIST.txt incase any mistake was made by accident which would be caused by the SSD_LIST.txt file.</li>
+</ol>
 <h4 id="version-207-20210809">version 207: 2021/08/09</h4>
 <ol type="1">
 <li><strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</strong> was released, below drives need update. | product_code | mm_number | product_name | subsystem | fw_version | page_date | | ————— | ——— | ————————————————————- | ——— | ———- | ——— | | SSDPE2KX010T801 | 959391 | P4510 (1TB, NVMe, 2.5inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KX020T801 | 959393 | P4510 (2TB, NVMe, 2.5inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KX040T801 | 959395 | SSD DC P4510 Series (4TB, NVMe, 2.5inch, 3D3, TLC) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KX080T801 | 959397 | SSD DC P4510 Series (8TB, NVMe, 2.5inch, 3D3, TLC) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE016T801 | 978083 | P4610 (1.6TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE032T801 | 978084 | P4610 (3.2TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE064T801 | 978085 | P4610 (6.4TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE076T801 | 963520 | P4610 (7.68TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPECKE064T801 | 999CNK | SSD DC P4618 Series ( 6.4TB, 1/2 Height PCIe 3.1 x8, 3D2, TLC | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE032T8OS | 984823 | SSD DC P4610 Series (3.2TB, 2.5in PCIe 3.1 x4, 3D2, TLC) | SSD | VDV10182 | 2021/7/6 | | SSDPEWKX153T801 | 999JJ2 | P4510 (15.36TB, Ruler) | SSD | VDV10182 | 2021/7/6 | | SSDPF21Q016TB01 | 99A6PV | Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint) | SSD | L0310200 | 2021/7/6 | | SSDPF21Q800GB01 | 99A6PT | Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint) | SSD | L0310200 | 2021/7/6 | | SSDPF21Q400GB01 | 99A6PN | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint) | SSD | L0310200 | 2021/7/6 |</li>
 <li><strong>intel-mas-cli-tool-linux-1-9</strong> has been released, <strong>VDV10182</strong> and <strong>L0310200</strong> are in support list. So Intel MAS needs a update to version <strong>1.9.147</strong></li>
 <li>Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment.</li>
-<li>After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status.</li>
+<li>After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.</li>
 </ol>
 <h4 id="version-206.4-202106028">version 206.4: 2021/06/028</h4>
 <ol type="1">
@@ -308,10 +313,10 @@ PS F:\Development\SSD_REFLASH_L9_OFFLINE&gt;</code></pre></li>
 <li>Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.</li>
 <li>OS Setup
 <ol type="1">
-<li>Update isdct-* in EST/PROCESS to included isdct-3.0.17.</li>
 <li>Install Linux using EST install process.</li>
 <li>Add contents of <strong>SSD_REFLASH</strong> to <strong>/TEST</strong> replacing PROCESS.sh with PROCESS.sh included.</li>
-<li>Copy all of the required drive FW images to <strong>/TEST</strong>.</li>
+<li>Copy all of the required drive FW images to <strong>/TEST/firmware_image</strong>.</li>
+<li>Install isdct rpm: **rpm –ivh isdct-*x86_64.rpm**.</li>
 <li>Install issdcm rpm: **rpm –ivh issdcm-*x86_64.rpm**.</li>
 <li>Install intelmas rpm: **rpm –ivh intemmas-*x86_64.rpm**.</li>
 <li>Install issdct rpm: **rpm –ivh issdct-*x86_64.rpm**.</li>
@@ -345,7 +350,8 @@ HISTORY</code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html">Firmware Versions for Intel® Solid State Drives and Intel® Optane™ Memory</a></li>
-<li><a href=""></a></li>
+<li><code>\\10.86.8.50\Share\TEST\FA\Yu\SSD_REFLASH_L9_OFFLINE.206.4</code></li>
+<li><a href="https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t">Download Intel MAS</a></li>
 <li><a href=""></a></li>
 <li><a href=""></a></li>
 <li><a href=""></a></li>

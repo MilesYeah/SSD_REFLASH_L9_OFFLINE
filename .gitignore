@@ -6,6 +6,7 @@
 *.bin
 !firmware_image/*/*.bin
 
+SSD_LIST.txt
 
 Docs/*
 !Docs/*.md

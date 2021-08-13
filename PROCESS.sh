@@ -367,11 +367,13 @@ function chk_reboot_needed()
 function disconnect_drives() {
     make_pretty_log_header "Drive mount info" 2
 
+    make_pretty_log_header "list drive block info before umount(fdisk -l)..." 3
+    fdisk -l >> local_log.log
+
     make_pretty_log_header "list drive block info before umount..." 3
-    lsblk >> local_log.log
+    lsblk -O >> local_log.log
     boot_drive=`lsblk | grep boot | awk '{print substr($1,3,3)}'| uniq`
     echo Got boot drive: $boot_drive >> local_log.log
-
 
     make_pretty_log_header "umount drives.." 3
     partitions=`lsblk -p | egrep -v "${boot_drive}|disk|NAME" | awk '{print substr($1, 3,10)}'`
@@ -399,7 +401,7 @@ function disconnect_drives() {
     echo "Driver unloading status: ${driver_unloaded}" >> local_log.log
 
     make_pretty_log_header "list drive block info after umount..." 3
-    lsblk >> local_log.log
+    lsblk -O >> local_log.log
 
 }
 
