@@ -499,9 +499,9 @@ disconnect_drives
 # echo "Handle log file"
 log_handler
 
-echo "End of the process, system will be shutdown in 6s, then you can remove the drives..."
+echo "End of the process, system will be shutdown in 10s, then you can remove the drives..."
 # read -p "End of the process, Hit Enter to exit and shutdown, then you can remove the drives..." -n1 -s
-sleep 6
+sleep 10
 init 0
 
 

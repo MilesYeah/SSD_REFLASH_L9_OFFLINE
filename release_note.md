@@ -82,6 +82,12 @@ You will need git to get the latest code from SW lab server through below comman
 ## History
 
 
+#### version 207.2: 2021/08/19
+1. Change the waiting time from 6 to 10 seconds per HOU PE's request.
+   1. `L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug` `2021年8月19日 10:45`
+
+
+
 #### version 207.1: 2021/08/13
 1. `L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug_V2.0` was released.
 2. Deleted SSD_LIST.txt incase any mistake was made by accident which would be caused by the SSD_LIST.txt file.
