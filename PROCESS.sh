@@ -21,7 +21,7 @@ REGX_FUT="(X18-M|X25-M|X25-E)"
 #REGX_MAS="()"
 
 
-VERSION_INTELMAS="1.9.147"
+VERSION_INTELMAS="1.10.155"
 VERSION_ISDCT="3.0.26.400"
 VERSION_ISSDCM="3.0.3"
 
@@ -135,16 +135,19 @@ function check_tool_version()
     if [ `grep -i intelmas app_list | grep -c "${VERSION_INTELMAS}"` -lt 1 ]; then
         echo "intelmas version: `grep -i intelmas app_list`"
         read -p "Unexpected intelmas version, please update it..."
+        exit 1
     fi
 
     if [ `grep -i isdct app_list | grep -c "${VERSION_ISDCT}"` -lt 1 ]; then
         echo "isdct version: `grep -i isdct app_list`"
         read -p "Unexpected isdct version, please update it..."
+        exit 1
     fi
 
     if [ `grep -i issdcm app_list | grep -c "${VERSION_ISSDCM}"` -lt 1 ]; then
         echo "issdcm version: `grep -i issdcm app_list`"
         read -p "Unexpected issdcm version, please update it..."
+        exit 1
     fi
 
 }
