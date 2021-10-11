@@ -87,6 +87,14 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## History
 
+#### version 208.1: 2021/10/11
+1. Intel released `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021`
+   1. No update for intelmas
+2. Add functions to record running status in flowlog.
+3. Fix a bug while disconnecting drives.
+   1. `lsblk -O` seems to not dump drive and partition information, so use `lsblk` directly.
+
+
 #### version 208: 2021/09/10
 1. Intel released `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Sept_2021`
    1. Intel MAS needs a update to version `1.10`.

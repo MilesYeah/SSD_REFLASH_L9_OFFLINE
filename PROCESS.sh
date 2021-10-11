@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /TEST
 export PATH=$PATH:/sbin:/usr/sbin
+export THOME="/TEST"
 
 # https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html
 
@@ -14,6 +15,10 @@ fi
 
 # Enable extended globbing
 shopt -s extglob
+
+
+STATUS=PASSED
+
 
 # series that need special tool to get FW updated.
 REGX_DCT="(D5-P4618)"
@@ -108,19 +113,94 @@ function show_fail()
 
 
 
+show_message () {
+    # echo -e "\033[32m"$1"\033[0m"
+    echo -e "$1"
+    # echo ""
+}
+
+show_section () {
+    echo -e "\n\n##############################################################################"
+    echo -e "\t$1"
+    echo -e "##############################################################################\n"
+}
+
+show_section_sub () {
+    echo -e "\n=========================================="
+    echo -e "\t$1"
+    echo -e "==========================================\t"
+}
+
+clear_previous_testing_data () {
+    show_section "Cleaning previous files..."
+    cd ${THOME}
+
+    show_section_sub "Previous files"
+    ls
+
+    [ ! -z $SN ] && ls | grep -Ei "${SN}" | xargs rm -f
+    [ ! -z $BIKSN ] && ls | grep -Ei "${BIKSN}" | xargs rm -f
+    ls | grep -Ei "\.qry|\.aaa|\.bbb|\.ccc|\.ddd|\.log|\.tmp|\.cfg|\.dump|NULL" | xargs rm -f
+
+    rm -f ${THOME}/flowlog
+
+    echo "OK."
+
+    show_section_sub "Files after cleaning"
+    ls
+
+    flowlog_item_alter "CLR_DATA" "YES"
+    # pause_check "Check after clearing previous testing data."
+    return 0
+}
+
+
+function flowlog_item_alter () {
+    # first parameter: item name
+    # second parameter: item value
+    # if item name has aleady been set in file flowlog, this function would change the item value to be the item value
+    # if item name is not set in file flowlog, this function would add this item in flowlog
+    local para=$1
+    local new_v=$2
+    count=`grep -w $para ${THOME}/flowlog | wc -l`
+    if [ $count -eq 0 ]; then
+        echo "$1=$2" >> ${THOME}/flowlog
+    else
+        sed -i "s/^${para}=.*$/${para}=${new_v}/g" ${THOME}/flowlog
+    fi
+
+}
+
+function variable_get_from_flowlog () {
+    show_message "Show flowlog file content.."
+    cat ${THOME}/flowlog
+    if [ -e ${THOME}/flowlog ]; then
+        # source ${THOME}/flowlog
+        for line in `cat ${THOME}/flowlog`
+        do
+            para=`echo $line | awk -F= '{print $1}'`
+            value=`echo $line | awk -F= '{print $2}'`
+            eval "export $para=$value"
+        done
+    fi
+}
+
+
+
 function make_pretty_log_header()
 {
     # $1 is log header message
     # $2 is log header level, the smaller the more ---
     if [[ $2 = "3" ]]; then
-        echo -e "------------------------------\n" >> local_log.log
+        echo -e "------------------------------" >> local_log.log
     elif [[ $2 = "2" ]]; then
-        echo -e "\n------------------------------------------------------------\n" >> local_log.log
+        echo -e "\n------------------------------------------------------------" >> local_log.log
     else
-        echo -e "\n\n\n------------------------------------------------------------------------------------------\n" >> local_log.log
+        echo -e "\n\n\n------------------------------------------------------------------------------------------" >> local_log.log
     fi
 
     echo $1 >> local_log.log
+    echo -e "\n" >> local_log.log
 }
 
 
@@ -226,8 +306,13 @@ IdentifyDrives() {
                     FW_STATUS="NEED"
                 fi
                 DriveList["$SerialNumber"]="$Index;$ModelNumber;$Firmware;$FW_STATUS;$ProductFamily;$DeviceStatus"
+                flowlog_item_alter $SerialNumber $Index;$ModelNumber;$Firmware;$FW_STATUS;$ProductFamily;$DeviceStatus
             fi
-            FW_STATUS="UNKNOWN"	
+            FW_STATUS="UNKNOWN"
+            if [[ $FW_STATUS != "COMPLETE" ]] && [[ $BOOT_COUNT -ne 0 ]]; then
+                show_message "FW update progress failed"
+                STATUS=FALIED
+            fi
         fi
 
         # if [ $SerialNumber ]; then 
@@ -355,6 +440,8 @@ function chk_reboot_needed()
         # read -p "Please reboot to verify the update" -n1 -s
         # read -p "Press any key to reboot the system..." -n1 -s
         sleep 2
+        ((BOOT_COUNT++))
+        flowlog_item_alter BOOT_COUNT $BOOT_COUNT
 
         if [ $DEBUG == "TRUE" ]; then
             pauseToCheck "After SSD FW programming, pause to check before reboot.."
@@ -374,37 +461,37 @@ function disconnect_drives() {
     fdisk -l >> local_log.log
 
     make_pretty_log_header "list drive block info before umount..." 3
-    lsblk -O >> local_log.log
+    lsblk >> local_log.log
     boot_drive=`lsblk | grep boot | awk '{print substr($1,3,3)}'| uniq`
     echo Got boot drive: $boot_drive >> local_log.log
 
     make_pretty_log_header "umount drives.." 3
     partitions=`lsblk -p | egrep -v "${boot_drive}|disk|NAME" | awk '{print substr($1, 3,10)}'`
     echo ${partitions}
-    for drive in ${partitions}
+    for partition in ${partitions}
     do
-        echo umount drive: $drive >> local_log.log
-        umount $drive |  tee -a local_log.log
+        echo umount partition: $partition >> local_log.log
+        umount $partition |  tee -a local_log.log
     done
 
-    connt=0
-    driver_unloaded=false
-    while [ $count -lt 10 ]
+    # connt=0
+    NVME_DRIVER_UNLOADED=false
+    while true
     do
         echo "Unload NVME drivers..."
 
         modprobe -r nvme
         if [ $? -eq 0 ]; then
-            driver_unloaded=true
+            NVME_DRIVER_UNLOADED=true
             echo "Nvme driver are successfully removed..."
             break
         fi
         sleep 2
     done
-    echo "Driver unloading status: ${driver_unloaded}" >> local_log.log
+    echo "Driver unloading status: ${NVME_DRIVER_UNLOADED}" >> local_log.log
 
     make_pretty_log_header "list drive block info after umount..." 3
-    lsblk -O >> local_log.log
+    lsblk >> local_log.log
 
 }
 
@@ -423,8 +510,17 @@ function log_handler()
     make_pretty_log_header issdfut 2
     # issdfut version >> local_log.log
 
+    make_pretty_log_header flow_log 2
+    cat flowlog >> local_log.log
+
     make_pretty_log_header standard_firmware_list 2
     cat SSD_LIST.txt >> local_log.log
+
+    make_pretty_log_header "File list in /TEST/" 2
+    ls -l ${THOME}/ >> local_log.log
+
+    make_pretty_log_header "Environment variables" 2
+    export >> local_log.log
 
     mv local_log.log ${LOG_FILE}
     # wput -q ${LOG_FILE} ftp://128.101.1.1/tstcom/STATINID/LOG/
@@ -449,15 +545,24 @@ function process_started()
 #                Flow Start
 #------------------------------------------------------------------------------------------------
 
-check_tool_version
-
 
 get_std_drive_firmware
 
 
+show_message "Boot up for ${BOOT_COUNT}th time"
+# Check the boot count to control test flow.
+if [ -z ${BOOT_COUNT} ] || [ ${BOOT_COUNT} -eq 0 ]; then
+    check_tool_version
+    clear_previous_testing_data
+
+    export BOOT_COUNT=0
+    flowlog_item_alter BOOT_COUNT $BOOT_COUNT
+
+fi
+
+
 #Find target drives
-echo "================================================================================"
-echo "Getting drive list under updating..."
+show_section "Getting drive list under updating..."
 make_pretty_log_header "FW version status at the beginning..."
 IdentifyDrives
 echo -e "\nSN;INDEX;MODEL;FW;STATUS;Family;Health" | tee -a local_log.log
@@ -477,8 +582,7 @@ chk_reboot_needed
 
 
 #CheckFwStatus
-echo -e "\n\n\n\n\n\n================================================================================"
-echo "Check final firmware status"
+show_section "Check final firmware status"
 make_pretty_log_header "FW version status at the end..."
 IdentifyDrives
 echo -e "\nSN;INDEX;MODEL;FW;STATUS;Family;Health" | tee -a local_log.log
@@ -498,9 +602,9 @@ done
 disconnect_drives
 
 
-# echo "================================================================================"
-# echo "Handle log file"
+show_section "Handle log file"
 log_handler
+
 
 echo "End of the process, system will be shutdown in 10s, then you can remove the drives..."
 # read -p "End of the process, Hit Enter to exit and shutdown, then you can remove the drives..." -n1 -s
