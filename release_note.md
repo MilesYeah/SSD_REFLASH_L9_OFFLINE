@@ -60,7 +60,7 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## Tool Versions
 1. intelmas: 
-   1. version: intelmas-1.10.155-0.x86_64
+   1. version: intelmas-1.11.165-0.x86_64
    2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
    3. IntelMAS can also be found from the follong shared path:
       1. `\\10.86.122.204\Mirror\Software\Intel\IntelMAS`
@@ -86,6 +86,15 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## History
+
+
+#### version 209: 2021/11/27
+1. intelmas to v1.11 seems to have fixed the issue that some P4800/P4801x drives cannot get firmware updated.
+   1. RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021
+   2. 2021/10/27 (周三) 10:36
+   3. Guo, Jianhua <jianhua.guo@intel.com>
+   4. I think you can use v1.11 first, and Zichao will release it soon in beginning of next month 😊
+
 
 #### version 208.1: 2021/10/11
 1. Intel released `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021`

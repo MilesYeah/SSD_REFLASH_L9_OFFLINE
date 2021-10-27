@@ -114,7 +114,7 @@
 <ol type="1">
 <li>intelmas:
 <ol type="1">
-<li>version: intelmas-1.10.155-0.x86_64</li>
+<li>version: intelmas-1.11.165-0.x86_64</li>
 <li><a href="https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t">download_url</a></li>
 <li>IntelMAS can also be found from the follong shared path:
 <ol type="1">
@@ -150,6 +150,28 @@
 </ol></li>
 </ol>
 <h2 id="history">History</h2>
+<h4 id="version-209-20211127">version 209: 2021/11/27</h4>
+<ol type="1">
+<li>intelmas to v1.11 seems to have fixed the issue that some P4800/P4801x drives cannot get firmware updated.
+<ol type="1">
+<li>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021</li>
+<li>2021/10/27 (周三) 10:36</li>
+<li>Guo, Jianhua <a href="mailto:jianhua.guo@intel.com" class="email">jianhua.guo@intel.com</a></li>
+<li>I think you can use v1.11 first, and Zichao will release it soon in beginning of next month 😊</li>
+</ol></li>
+</ol>
+<h4 id="version-208.1-20211011">version 208.1: 2021/10/11</h4>
+<ol type="1">
+<li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021</code>
+<ol type="1">
+<li>No update for intelmas</li>
+</ol></li>
+<li>Add functions to record running status in flowlog.</li>
+<li>Fix a bug while disconnecting drives.
+<ol type="1">
+<li><code>lsblk -O</code> seems to not dump drive and partition information, so use <code>lsblk</code> directly.</li>
+</ol></li>
+</ol>
 <h4 id="version-208-20210910">version 208: 2021/09/10</h4>
 <ol type="1">
 <li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Sept_2021</code>
