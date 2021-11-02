@@ -38,13 +38,6 @@ You will need git to get the latest code from SW lab server through below comman
    | SSDPD21K375GA01 | 958883    | D4800X (375GB, NVMe 2.5inch)                                    |
    | SSDPD21K750GA01 | 958884    | D4800X (750GB, NVMe 2.5inch)                                    |
    | SSDPD21K015TA01 | 958885    | D4800X (1.5TB, NVMe 2.5inch)                                    |
-   | SSDPF2KX076TZ01 | 99A5DR    | SSD D7-P5510 Series (7.68TB, 2.5in PCIe 4.0 x4, 3D4, TLC)       |
-   | SSDPF2KX076TZOS | 99A5D1    | SSD D7-P5510 Series (7.68TB, 2.5in PCIe 4.0 x4, 3D4, TLC, OPAL) |
-   | SSDPF2KX038TZ01 | 99A5DP    | SSD D7-P5510 Series (3.84TB, 2.5in PCIe 4.0 x4, 3D4, TLC)       |
-   | SSDPF2KX038TZOS | 99A5CZ    | SSD D7-P5510 Series (3.84TB, 2.5in PCIe 4.0 x4, 3D4, TLC, OPAL) |
-   | SSDPF21Q016TB01 | 99A6PV    | Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)          |
-   | SSDPF21Q800GB01 | 99A6PT    | Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)          |
-   | SSDPF21Q400GB01 | 99A6PN    | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)          |
 
 
 
@@ -88,7 +81,12 @@ You will need git to get the latest code from SW lab server through below comman
 ## History
 
 
-#### version 209: 2021/11/27
+#### version 209.1: 2021/11/02
+1. Intel released `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Nov_2021`
+   1. intelmas needs an update to `1.11` to fix issues on P4800/P4801x 
+
+
+#### version 209: 2021/10/27
 1. intelmas to v1.11 seems to have fixed the issue that some P4800/P4801x drives cannot get firmware updated.
    1. RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021
    2. 2021/10/27 (周三) 10:36
@@ -124,6 +122,7 @@ You will need git to get the latest code from SW lab server through below comman
 
 #### version 207: 2021/08/09
 1. **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug** was released, below drives need update.
+
    | product_code    | mm_number | product_name                                                  | subsystem | fw_version | page_date |
    | --------------- | --------- | ------------------------------------------------------------- | --------- | ---------- | --------- |
    | SSDPE2KX010T801 | 959391    | P4510 (1TB, NVMe, 2.5inch)                                    | SSD       | VDV10182   | 2021/7/6  |
@@ -140,6 +139,7 @@ You will need git to get the latest code from SW lab server through below comman
    | SSDPF21Q016TB01 | 99A6PV    | Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
    | SSDPF21Q800GB01 | 99A6PT    | Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
    | SSDPF21Q400GB01 | 99A6PN    | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)        | SSD       | L0310200   | 2021/7/6  |
+
 2. **intel-mas-cli-tool-linux-1-9** has been released, **VDV10182** and **L0310200** are in support list. So Intel MAS needs a update to version **1.9.147**
 3. Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment. 
 4. After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.

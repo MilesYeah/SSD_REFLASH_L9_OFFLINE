@@ -34,11 +34,6 @@
 <ol type="1">
 <li><p>Below SSDs have <code>No Firmware Update Available</code></p>
 <table>
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 10%" />
-<col style="width: 72%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>product_code</th>
@@ -61,41 +56,6 @@
 <td>SSDPD21K015TA01</td>
 <td>958885</td>
 <td>D4800X (1.5TB, NVMe 2.5inch)</td>
-</tr>
-<tr class="even">
-<td>SSDPF2KX076TZ01</td>
-<td>99A5DR</td>
-<td>SSD D7-P5510 Series (7.68TB, 2.5in PCIe 4.0 x4, 3D4, TLC)</td>
-</tr>
-<tr class="odd">
-<td>SSDPF2KX076TZOS</td>
-<td>99A5D1</td>
-<td>SSD D7-P5510 Series (7.68TB, 2.5in PCIe 4.0 x4, 3D4, TLC, OPAL)</td>
-</tr>
-<tr class="even">
-<td>SSDPF2KX038TZ01</td>
-<td>99A5DP</td>
-<td>SSD D7-P5510 Series (3.84TB, 2.5in PCIe 4.0 x4, 3D4, TLC)</td>
-</tr>
-<tr class="odd">
-<td>SSDPF2KX038TZOS</td>
-<td>99A5CZ</td>
-<td>SSD D7-P5510 Series (3.84TB, 2.5in PCIe 4.0 x4, 3D4, TLC, OPAL)</td>
-</tr>
-<tr class="even">
-<td>SSDPF21Q016TB01</td>
-<td>99A6PV</td>
-<td>Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)</td>
-</tr>
-<tr class="odd">
-<td>SSDPF21Q800GB01</td>
-<td>99A6PT</td>
-<td>Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)</td>
-</tr>
-<tr class="even">
-<td>SSDPF21Q400GB01</td>
-<td>99A6PN</td>
-<td>Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)</td>
 </tr>
 </tbody>
 </table></li>
@@ -150,7 +110,14 @@
 </ol></li>
 </ol>
 <h2 id="history">History</h2>
-<h4 id="version-209-20211127">version 209: 2021/11/27</h4>
+<h4 id="version-209.1-20211102">version 209.1: 2021/11/02</h4>
+<ol type="1">
+<li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Nov_2021</code>
+<ol type="1">
+<li>intelmas needs an update to <code>1.11</code> to fix issues on P4800/P4801x</li>
+</ol></li>
+</ol>
+<h4 id="version-209-20211027">version 209: 2021/10/27</h4>
 <ol type="1">
 <li>intelmas to v1.11 seems to have fixed the issue that some P4800/P4801x drives cannot get firmware updated.
 <ol type="1">
@@ -193,10 +160,144 @@
 </ol>
 <h4 id="version-207-20210809">version 207: 2021/08/09</h4>
 <ol type="1">
-<li><strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</strong> was released, below drives need update. | product_code | mm_number | product_name | subsystem | fw_version | page_date | | ————— | ——— | ————————————————————- | ——— | ———- | ——— | | SSDPE2KX010T801 | 959391 | P4510 (1TB, NVMe, 2.5inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KX020T801 | 959393 | P4510 (2TB, NVMe, 2.5inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KX040T801 | 959395 | SSD DC P4510 Series (4TB, NVMe, 2.5inch, 3D3, TLC) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KX080T801 | 959397 | SSD DC P4510 Series (8TB, NVMe, 2.5inch, 3D3, TLC) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE016T801 | 978083 | P4610 (1.6TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE032T801 | 978084 | P4610 (3.2TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE064T801 | 978085 | P4610 (6.4TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE076T801 | 963520 | P4610 (7.68TB, NVMe, 2.5 inch) | SSD | VDV10182 | 2021/7/6 | | SSDPECKE064T801 | 999CNK | SSD DC P4618 Series ( 6.4TB, 1/2 Height PCIe 3.1 x8, 3D2, TLC | SSD | VDV10182 | 2021/7/6 | | SSDPE2KE032T8OS | 984823 | SSD DC P4610 Series (3.2TB, 2.5in PCIe 3.1 x4, 3D2, TLC) | SSD | VDV10182 | 2021/7/6 | | SSDPEWKX153T801 | 999JJ2 | P4510 (15.36TB, Ruler) | SSD | VDV10182 | 2021/7/6 | | SSDPF21Q016TB01 | 99A6PV | Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint) | SSD | L0310200 | 2021/7/6 | | SSDPF21Q800GB01 | 99A6PT | Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint) | SSD | L0310200 | 2021/7/6 | | SSDPF21Q400GB01 | 99A6PN | Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint) | SSD | L0310200 | 2021/7/6 |</li>
-<li><strong>intel-mas-cli-tool-linux-1-9</strong> has been released, <strong>VDV10182</strong> and <strong>L0310200</strong> are in support list. So Intel MAS needs a update to version <strong>1.9.147</strong></li>
-<li>Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment.</li>
-<li>After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.</li>
+<li><p><strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</strong> was released, below drives need update.</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 53%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>product_code</th>
+<th>mm_number</th>
+<th>product_name</th>
+<th>subsystem</th>
+<th>fw_version</th>
+<th>page_date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SSDPE2KX010T801</td>
+<td>959391</td>
+<td>P4510 (1TB, NVMe, 2.5inch)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPE2KX020T801</td>
+<td>959393</td>
+<td>P4510 (2TB, NVMe, 2.5inch)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="odd">
+<td>SSDPE2KX040T801</td>
+<td>959395</td>
+<td>SSD DC P4510 Series (4TB, NVMe, 2.5inch, 3D3, TLC)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPE2KX080T801</td>
+<td>959397</td>
+<td>SSD DC P4510 Series (8TB, NVMe, 2.5inch, 3D3, TLC)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="odd">
+<td>SSDPE2KE016T801</td>
+<td>978083</td>
+<td>P4610 (1.6TB, NVMe, 2.5 inch)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPE2KE032T801</td>
+<td>978084</td>
+<td>P4610 (3.2TB, NVMe, 2.5 inch)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="odd">
+<td>SSDPE2KE064T801</td>
+<td>978085</td>
+<td>P4610 (6.4TB, NVMe, 2.5 inch)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPE2KE076T801</td>
+<td>963520</td>
+<td>P4610 (7.68TB, NVMe, 2.5 inch)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="odd">
+<td>SSDPECKE064T801</td>
+<td>999CNK</td>
+<td>SSD DC P4618 Series ( 6.4TB, 1/2 Height PCIe 3.1 x8, 3D2, TLC</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPE2KE032T8OS</td>
+<td>984823</td>
+<td>SSD DC P4610 Series (3.2TB, 2.5in PCIe 3.1 x4, 3D2, TLC)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="odd">
+<td>SSDPEWKX153T801</td>
+<td>999JJ2</td>
+<td>P4510 (15.36TB, Ruler)</td>
+<td>SSD</td>
+<td>VDV10182</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPF21Q016TB01</td>
+<td>99A6PV</td>
+<td>Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)</td>
+<td>SSD</td>
+<td>L0310200</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="odd">
+<td>SSDPF21Q800GB01</td>
+<td>99A6PT</td>
+<td>Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)</td>
+<td>SSD</td>
+<td>L0310200</td>
+<td>2021/7/6</td>
+</tr>
+<tr class="even">
+<td>SSDPF21Q400GB01</td>
+<td>99A6PN</td>
+<td>Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)</td>
+<td>SSD</td>
+<td>L0310200</td>
+<td>2021/7/6</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>intel-mas-cli-tool-linux-1-9</strong> has been released, <strong>VDV10182</strong> and <strong>L0310200</strong> are in support list. So Intel MAS needs a update to version <strong>1.9.147</strong></p></li>
+<li><p>Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment.</p></li>
+<li><p>After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.</p></li>
 </ol>
 <h4 id="version-206.4-202106028">version 206.4: 2021/06/028</h4>
 <ol type="1">
@@ -302,52 +403,52 @@ PS F:\Development\SSD_REFLASH_L9_OFFLINE&gt;</code></pre></li>
 </ul></li>
 <li><p>While clone or pull from server, you will need to input the password for current reporistory, contact the repository maintainer to get the password.</p></li>
 <li><p>A simple to show how to colne the code from server.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">PS</span> F:\Development&gt; <span class="fu">cd</span> .\temp\</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="fu">PS</span> F:\Development\temp&gt; <span class="fu">ls</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="fu">PS</span> F:\Development\temp&gt;</a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="fu">PS</span> F:\Development\temp&gt; git clone ssh://user_pe@10.<span class="fu">86</span>.<span class="fu">122</span>.<span class="fu">204</span>:29418/SSDReflash.<span class="fu">git</span></a>
-<a class="sourceLine" id="cb2-5" title="5">Cloning into &#39;SSDReflash&#39;...</a>
-<a class="sourceLine" id="cb2-6" title="6">Password authentication</a>
-<a class="sourceLine" id="cb2-7" title="7">Password:</a>
-<a class="sourceLine" id="cb2-8" title="8">remote: Counting objects: 49, done</a>
-<a class="sourceLine" id="cb2-9" title="9">remote: Finding sources: 100% (49/49)</a>
-<a class="sourceLine" id="cb2-10" title="10">remote: Getting sizes: 100% (26/26)</a>
-<a class="sourceLine" id="cb2-11" title="11">remote: Total 49 (delta 15), reused 49 (delta 15) eceiving objects:  71% (35/49)</a>
-<a class="sourceLine" id="cb2-12" title="12">Receiving objects: 100% (49/49), 206.<span class="fu">85</span> KiB | 0 bytes/s, done.</a>
-<a class="sourceLine" id="cb2-13" title="13">Resolving deltas: 100% (15/15), done.</a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="fu">PS</span> F:\Development\temp&gt;</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">PS</span> F:\Development\temp&gt; <span class="fu">ls</span></a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4">    Directory: F:\Development\temp</a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6"></a>
-<a class="sourceLine" id="cb3-7" title="7">Mode                LastWriteTime         Length Name</a>
-<a class="sourceLine" id="cb3-8" title="8">----                -------------         ------ ----</a>
-<a class="sourceLine" id="cb3-9" title="9">d-----         3/3/2021   9:27 AM                SSDReflash</a>
-<a class="sourceLine" id="cb3-10" title="10"></a>
-<a class="sourceLine" id="cb3-11" title="11"></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="fu">PS</span> F:\Development\temp&gt;</a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="fu">PS</span> F:\Development\temp&gt; <span class="fu">cd</span> .\SSDReflash\</a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="fu">PS</span> F:\Development\temp\SSDReflash&gt; <span class="fu">ls</span></a>
-<a class="sourceLine" id="cb3-15" title="15"></a>
-<a class="sourceLine" id="cb3-16" title="16"></a>
-<a class="sourceLine" id="cb3-17" title="17">    Directory: F:\Development\temp\SSDReflash</a>
-<a class="sourceLine" id="cb3-18" title="18"></a>
-<a class="sourceLine" id="cb3-19" title="19"></a>
-<a class="sourceLine" id="cb3-20" title="20">Mode                LastWriteTime         Length Name</a>
-<a class="sourceLine" id="cb3-21" title="21">----                -------------         ------ ----</a>
-<a class="sourceLine" id="cb3-22" title="22">d-----         3/3/2021   9:27 AM                Docs</a>
-<a class="sourceLine" id="cb3-23" title="23">-a----         3/3/2021   9:27 AM             86 .<span class="fu">gitignore</span></a>
-<a class="sourceLine" id="cb3-24" title="24">-a----         3/3/2021   9:27 AM           6939 <span class="kw">PROCESS</span>.<span class="fu">py</span></a>
-<a class="sourceLine" id="cb3-25" title="25">-a----         3/3/2021   9:27 AM          12461 <span class="kw">PROCESS</span>.<span class="fu">sh</span></a>
-<a class="sourceLine" id="cb3-26" title="26">-a----         3/3/2021   9:27 AM           6737 releasenote.<span class="fu">txt</span></a>
-<a class="sourceLine" id="cb3-27" title="27">-a----         3/3/2021   9:27 AM         106590 SSD_FW_reflash.<span class="fu">docx</span></a>
-<a class="sourceLine" id="cb3-28" title="28">-a----         3/3/2021   9:27 AM           2259 SSD_LIST.<span class="fu">txt</span></a>
-<a class="sourceLine" id="cb3-29" title="29">-a----         3/3/2021   9:27 AM            337 trial.<span class="fu">py</span></a>
-<a class="sourceLine" id="cb3-30" title="30"></a>
-<a class="sourceLine" id="cb3-31" title="31"></a>
-<a class="sourceLine" id="cb3-32" title="32"><span class="fu">PS</span> F:\Development\temp\SSDReflash&gt;</a></code></pre></div></li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development<span class="op">&gt;</span> <span class="fu">cd</span> <span class="op">.</span>\temp\</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span> <span class="fu">ls</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span> git clone ssh<span class="op">://</span>user_pe@10<span class="op">.</span><span class="fu">86</span><span class="op">.</span><span class="fu">122</span><span class="op">.</span><span class="fu">204</span><span class="op">:</span>29418<span class="op">/</span>SSDReflash<span class="op">.</span><span class="fu">git</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Cloning into &#39;SSDReflash&#39;<span class="op">...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Password authentication</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Password<span class="op">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Counting objects<span class="op">:</span> 49<span class="op">,</span> done</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Finding sources<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>49<span class="op">/</span>49<span class="op">)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Getting sizes<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>26<span class="op">/</span>26<span class="op">)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Total 49 <span class="op">(</span>delta 15<span class="op">),</span> reused 49 <span class="op">(</span>delta 15<span class="op">)</span> eceiving objects<span class="op">:</span>  71<span class="op">%</span> <span class="op">(</span>35<span class="op">/</span>49<span class="op">)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Receiving objects<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>49<span class="op">/</span>49<span class="op">),</span> 206<span class="op">.</span><span class="fu">85</span> KiB <span class="op">|</span> 0 bytes<span class="op">/</span>s<span class="op">,</span> done<span class="op">.</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Resolving deltas<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>15<span class="op">/</span>15<span class="op">),</span> done<span class="op">.</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span> <span class="fu">ls</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Directory<span class="op">:</span> F<span class="op">:</span>\Development\temp</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Mode                LastWriteTime         Length Name</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">----</span>                <span class="op">-------------</span>         <span class="op">------</span> <span class="op">----</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>d<span class="op">-----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM                SSDReflash</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp<span class="op">&gt;</span> <span class="fu">cd</span> <span class="op">.</span>\SSDReflash\</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp\SSDReflash<span class="op">&gt;</span> <span class="fu">ls</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    Directory<span class="op">:</span> F<span class="op">:</span>\Development\temp\SSDReflash</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>Mode                LastWriteTime         Length Name</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="op">----</span>                <span class="op">-------------</span>         <span class="op">------</span> <span class="op">----</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>d<span class="op">-----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM                Docs</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM             86 <span class="op">.</span><span class="fu">gitignore</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM           6939 <span class="kw">PROCESS</span><span class="op">.</span><span class="fu">py</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM          12461 <span class="kw">PROCESS</span><span class="op">.</span><span class="fu">sh</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM           6737 releasenote<span class="op">.</span><span class="fu">txt</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM         106590 SSD_FW_reflash<span class="op">.</span><span class="fu">docx</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM           2259 SSD_LIST<span class="op">.</span><span class="fu">txt</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="op">-</span>a<span class="op">----</span>         3<span class="op">/</span>3<span class="op">/</span>2021   9<span class="op">:</span>27 AM            337 trial<span class="op">.</span><span class="fu">py</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> F<span class="op">:</span>\Development\temp\SSDReflash<span class="op">&gt;</span></span></code></pre></div></li>
 </ol>
 <h3 id="get-the-latest-code-through-web">Get the latest code through web</h3>
 <ol type="1">
