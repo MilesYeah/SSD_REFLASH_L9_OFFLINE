@@ -53,7 +53,7 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## Tool Versions
 1. intelmas: 
-   1. version: intelmas-1.11.165-0.x86_64
+   1. version: intelmas-1.12.172-0.x86_64
    2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
    3. IntelMAS can also be found from the follong shared path:
       1. `\\10.86.122.204\Mirror\Software\Intel\IntelMAS`
@@ -79,6 +79,11 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## History
+
+
+#### version 210: 2021/12/13
+1. Intel released `Re: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Dec_2021`
+   1. intelmas needs an update to `1.12` to add support for newly updated requirements.
 
 
 #### version 209.1: 2021/11/02

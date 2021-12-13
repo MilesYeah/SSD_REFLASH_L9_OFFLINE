@@ -2,6 +2,7 @@
 cd /TEST
 export PATH=$PATH:/sbin:/usr/sbin
 export THOME="/TEST"
+export FPN_FLOWLOG=${THOME}/flowlog
 
 # https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html
 
@@ -26,7 +27,7 @@ REGX_FUT="(X18-M|X25-M|X25-E)"
 #REGX_MAS="()"
 
 
-VERSION_INTELMAS="1.11.165"
+VERSION_INTELMAS="1.12.172"
 VERSION_ISDCT="3.0.26.400"
 VERSION_ISSDCM="3.0.3"
 
@@ -142,7 +143,7 @@ clear_previous_testing_data () {
     [ ! -z $BIKSN ] && ls | grep -Ei "${BIKSN}" | xargs rm -f
     ls | grep -Ei "\.qry|\.aaa|\.bbb|\.ccc|\.ddd|\.log|\.tmp|\.cfg|\.dump|NULL" | xargs rm -f
 
-    rm -f ${THOME}/flowlog
+    rm -f ${FPN_FLOWLOG}
 
     echo "OK."
 
@@ -162,21 +163,21 @@ function flowlog_item_alter () {
     # if item name is not set in file flowlog, this function would add this item in flowlog
     local para=$1
     local new_v=$2
-    count=`grep -w $para ${THOME}/flowlog | wc -l`
+    count=`grep -w $para ${FPN_FLOWLOG} | wc -l`
     if [ $count -eq 0 ]; then
-        echo "$1=$2" >> ${THOME}/flowlog
+        echo "$1=$2" >> ${FPN_FLOWLOG}
     else
-        sed -i "s/^${para}=.*$/${para}=${new_v}/g" ${THOME}/flowlog
+        sed -i "s/^${para}=.*$/${para}=${new_v}/g" ${FPN_FLOWLOG}
     fi
 
 }
 
 function variable_get_from_flowlog () {
     show_message "Show flowlog file content.."
-    cat ${THOME}/flowlog
-    if [ -e ${THOME}/flowlog ]; then
-        # source ${THOME}/flowlog
-        for line in `cat ${THOME}/flowlog`
+    cat ${FPN_FLOWLOG}
+    if [ -e ${FPN_FLOWLOG} ]; then
+        # source ${FPN_FLOWLOG}
+        for line in `cat ${FPN_FLOWLOG}`
         do
             para=`echo $line | awk -F= '{print $1}'`
             value=`echo $line | awk -F= '{print $2}'`
@@ -196,7 +197,7 @@ function make_pretty_log_header()
     elif [[ $2 = "2" ]]; then
         echo -e "\n------------------------------------------------------------" >> local_log.log
     else
-        echo -e "\n\n\n------------------------------------------------------------------------------------------" >> local_log.log
+        echo -e "\n\n===================================================================================================" >> local_log.log
     fi
 
     echo $1 >> local_log.log
@@ -259,7 +260,7 @@ function get_std_drive_firmware()
 IdentifyDrives() {
     FW_STATUS="UNKNOWN"	
     IFS=$'\n'
-    make_pretty_log_header Detecting_Drive_firmwares 2
+    make_pretty_log_header "Detecting_Drive_firmwares on boot #${BOOT_COUNT}" 2
     date >> local_log.log
     intelmas show -o json -intelssd >> local_log.log
     for line in $(intelmas show -intelssd)
@@ -333,7 +334,7 @@ function update_drive_firmware()
 {
     echo "================================================================================"
     echo "Updating drive firmwares..."
-    make_pretty_log_header "Updating Firmware for each drive..." 2
+    make_pretty_log_header "Updating Firmware for each drive on boot #${BOOT_COUNT}..." 2
     date >> local_log.log
 
     #UpdateFW
@@ -522,6 +523,7 @@ function log_handler()
     make_pretty_log_header "Environment variables" 2
     export >> local_log.log
 
+    flowlog_item_alter "BOOT_COUNT" "0"
     mv local_log.log ${LOG_FILE}
     # wput -q ${LOG_FILE} ftp://128.101.1.1/tstcom/STATINID/LOG/
 
@@ -547,7 +549,7 @@ function process_started()
 
 
 get_std_drive_firmware
-
+variable_get_from_flowlog
 
 show_message "Boot up for ${BOOT_COUNT}th time"
 # Check the boot count to control test flow.
@@ -563,7 +565,7 @@ fi
 
 #Find target drives
 show_section "Getting drive list under updating..."
-make_pretty_log_header "FW version status at the beginning..."
+make_pretty_log_header "FW version status at the beginning on boot #${BOOT_COUNT}..."
 IdentifyDrives
 echo -e "\nSN;INDEX;MODEL;FW;STATUS;Family;Health" | tee -a local_log.log
 for SerialNumber in "${!InitialDriveList[@]}"
@@ -583,7 +585,7 @@ chk_reboot_needed
 
 #CheckFwStatus
 show_section "Check final firmware status"
-make_pretty_log_header "FW version status at the end..."
+make_pretty_log_header "FW version status at the end on boot #${BOOT_COUNT}..."
 IdentifyDrives
 echo -e "\nSN;INDEX;MODEL;FW;STATUS;Family;Health" | tee -a local_log.log
 for SN in "${!InitialDriveList[@]}"
