@@ -4,7 +4,7 @@ $null = [Console]::ReadKey('?')
 
 pandoc.exe .\release_note.md -f markdown -t html -o .\release_note.html
 
-$commit_msg=(cat .\release_note.md | findstr /i "version.20[0-9]" | select -first 1)
+$commit_msg=(cat .\release_note.md | findstr /i "version.[0-6][0-9][0-9]" | select -first 1)
 echo "To be committed version: $commit_msg"
 
 # # Write-Host 'Press Any Key to continue following auto-matic actions!' -NoNewline
