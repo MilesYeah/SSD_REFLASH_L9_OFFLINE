@@ -2,8 +2,10 @@
 
 You will need git to get the latest code from SW lab server through below command.
 
-* Command to update: **git pull origin master**
-* Command to clone: **git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git**
+* Command to clone: 
+  * `git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git`
+* Command to update: 
+  * `git pull origin master`
 
 
 
@@ -83,6 +85,7 @@ You will need git to get the latest code from SW lab server through below comman
   * `SSD_List.new.txt`: data from intel released FW table plus data that unique from original SSD_list.txt
   * `SSD_List.old.txt`: ordered data from original SSD_list.txt
 * Please dont forget to update `SSD_list.txt`
+* Since SW lab server is down, this repository will be hold in Github, please see the command reference on the beginning of this document to know how to get and update code on your local host.
 
 
 
