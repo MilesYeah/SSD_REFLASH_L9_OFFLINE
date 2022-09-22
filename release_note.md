@@ -53,24 +53,18 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## Tool Versions
 1. intelmas: 
-   1. version: intelmas-1.12.172-0.x86_64
+   1. version: intelmas-2.1.352-0.x86_64
    2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
-   3. IntelMAS can also be found from the follong shared path:
-      1. `\\10.86.122.204\Mirror\Software\Intel\IntelMAS`
-   4. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
+   3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
 2. issdcm: 
    1. version: issdcm-3.0.3-1.x86_64
    2. download_url, provided by intel 
-   3. IntelMAS can also be found from the follong shared path:
-      1. `\\10.86.122.204\Mirror\Software\Intel\ISSDCM`
-   4. note: 
+   3. note: 
       1. Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on **Tue 4/13/2021 10:38 AM** **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr**
 3. isdct: depracated
    1. version: isdct-3.0.26.400-1.x86_64
    2. [download_url]()
-   3. IntelMAS can also be found from the follong shared path:
-      1. `\\10.86.122.204\Mirror\Software\Intel\ISDCT`
-   4. note: **depracated**
+   3. note: **depracated**
 <!-- 4. issdfut: 
    1. version: NA
    2. [download_url] NA
@@ -79,6 +73,17 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## History
+
+
+#### version 211: 2022/09/22
+* Intel released `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -April_2022》》》》fw table Sep_2022`
+  * intelmas needs an update to `2.1` to add support for newly updated requirements.
+* Generated a python script to read Excel file and then generate SSD list base on the fw table released from Intel. Below files will be generated:
+  * `SSD_List.new.fromXLSX.txt`: data from intel released FW table
+  * `SSD_List.new.txt`: data from intel released FW table plus data that unique from original SSD_list.txt
+  * `SSD_List.old.txt`: ordered data from original SSD_list.txt
+* Please dont forget to update `SSD_list.txt`
+
 
 
 #### version 210: 2021/12/13

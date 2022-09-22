@@ -74,22 +74,14 @@
 <ol type="1">
 <li>intelmas:
 <ol type="1">
-<li>version: intelmas-1.12.172-0.x86_64</li>
+<li>version: intelmas-2.1.352-0.x86_64</li>
 <li><a href="https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t">download_url</a></li>
-<li>IntelMAS can also be found from the follong shared path:
-<ol type="1">
-<li><code>\\10.86.122.204\Mirror\Software\Intel\IntelMAS</code></li>
-</ol></li>
 <li>note: Currently, it is mainly to get drive FW updated with the versions inside the tool.</li>
 </ol></li>
 <li>issdcm:
 <ol type="1">
 <li>version: issdcm-3.0.3-1.x86_64</li>
 <li>download_url, provided by intel</li>
-<li>IntelMAS can also be found from the follong shared path:
-<ol type="1">
-<li><code>\\10.86.122.204\Mirror\Software\Intel\ISSDCM</code></li>
-</ol></li>
 <li>note:
 <ol type="1">
 <li>Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on <strong>Tue 4/13/2021 10:38 AM</strong> <strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr</strong></li>
@@ -99,10 +91,6 @@
 <ol type="1">
 <li>version: isdct-3.0.26.400-1.x86_64</li>
 <li><a href="">download_url</a></li>
-<li>IntelMAS can also be found from the follong shared path:
-<ol type="1">
-<li><code>\\10.86.122.204\Mirror\Software\Intel\ISDCT</code></li>
-</ol></li>
 <li>note: <strong>depracated</strong> <!-- 4. issdfut: 
 1. version: NA
 2. [download_url] NA
@@ -110,6 +98,20 @@
 </ol></li>
 </ol>
 <h2 id="history">History</h2>
+<h4 id="version-211-20220922">version 211: 2022/09/22</h4>
+<ul>
+<li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -April_2022》》》》fw table Sep_2022</code>
+<ul>
+<li>intelmas needs an update to <code>2.1</code> to add support for newly updated requirements.</li>
+</ul></li>
+<li>Generated a python script to read Excel file and then generate SSD list base on the fw table released from Intel. Below files will be generated:
+<ul>
+<li><code>SSD_List.new.fromXLSX.txt</code>: data from intel released FW table</li>
+<li><code>SSD_List.new.txt</code>: data from intel released FW table plus data that unique from original SSD_list.txt</li>
+<li><code>SSD_List.old.txt</code>: ordered data from original SSD_list.txt</li>
+</ul></li>
+<li>Please dont forget to update <code>SSD_list.txt</code></li>
+</ul>
 <h4 id="version-210-20211213">version 210: 2021/12/13</h4>
 <ol type="1">
 <li>Intel released <code>Re: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Dec_2021</code>
