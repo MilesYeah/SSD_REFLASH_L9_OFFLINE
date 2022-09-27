@@ -11,6 +11,7 @@ if [ -z $1 ]; then
     DEBUG=FALSE
 else
     DEBUG=TRUE
+    echo DEBUG=TRUE >> ${FPN_FLOWLOG}
 fi
 
 
@@ -24,9 +25,10 @@ STATUS=PASSED
 # series that need special tool to get FW updated.
 REGX_DCT="(D5-P4618)"
 REGX_FUT="(X18-M|X25-M|X25-E)"
-#REGX_MAS="()"
+REGX_MAS="(emptyList)"
+REGX_SST="(emptyList)"
 
-
+VERSION_SST="1.3.208"
 VERSION_INTELMAS="2.1.352"
 VERSION_ISDCT="3.0.26.400"
 VERSION_ISSDCM="3.0.3"
@@ -213,6 +215,12 @@ function check_tool_version()
     echo "Checking whether tool versions are expected"
 
     rpm -qa > app_list
+    if [ `egrep -wi sst app_list | grep -c "${VERSION_SST}"` -lt 1 ]; then
+        echo "SST version: `grep -i SST app_list`"
+        read -p "Unexpected SST version, please update it..."
+        exit 1
+    fi
+
     if [ `grep -i intelmas app_list | grep -c "${VERSION_INTELMAS}"` -lt 1 ]; then
         echo "intelmas version: `grep -i intelmas app_list`"
         read -p "Unexpected intelmas version, please update it..."
@@ -262,8 +270,8 @@ IdentifyDrives() {
     IFS=$'\n'
     make_pretty_log_header "Detecting_Drive_firmwares on boot #${BOOT_COUNT}" 2
     date >> local_log.log
-    intelmas show -o json -intelssd >> local_log.log
-    for line in $(intelmas show -intelssd)
+    sst show -o json -ssd >> local_log.log
+    for line in $(sst show -ssd)
     do
         # echo ${line} >> local_log.log
         regx="^DeviceStatus :"
@@ -307,7 +315,7 @@ IdentifyDrives() {
                     FW_STATUS="NEED"
                 fi
                 DriveList["$SerialNumber"]="$Index;$ModelNumber;$Firmware;$FW_STATUS;$ProductFamily;$DeviceStatus"
-                flowlog_item_alter $SerialNumber $Index;$ModelNumber;$Firmware;$FW_STATUS;$ProductFamily;$DeviceStatus
+                flowlog_item_alter "$SerialNumber" "$Index;$ModelNumber;$Firmware;$FW_STATUS;$ProductFamily;$DeviceStatus"
             fi
             FW_STATUS="UNKNOWN"
             if [[ $FW_STATUS != "COMPLETE" ]] && [[ $BOOT_COUNT -ne 0 ]]; then
@@ -368,9 +376,12 @@ function update_drive_firmware()
                 elif [[ $ProductFamily =~ $REGX_FUT ]]; then
                     echo "Using issdfut to update REGX_FUT FW. For ${SN}..."
                     nohup echo -n Y | echo "issdfut works outside of the operating system, drive FW need to be updated outside of this process."  > issdcm_${SN}.log &
-                else
+                elif [[ $ProductFamily =~ $REGX_MAS ]]; then
                     echo "Using intelmas to update REGX_MAS FW. For ${SN}..."
                     nohup echo -n Y | intelmas load -intelssd ${SN} > issdcm_${SN}.log &
+                else
+                    echo "Using sst to update REGX_SST FW. For ${SN}..."
+                    nohup echo -n Y | sst load -ssd ${SN} > issdcm_${SN}.log &
                 fi
             fi
             Pids+=($!)
@@ -448,6 +459,8 @@ function chk_reboot_needed()
             pauseToCheck "After SSD FW programming, pause to check before reboot.."
         fi
 
+        show_message "Now we will reboot in 6 seconds after SSD FW update."
+        sleep 6
         init 6
         # exit
     fi
@@ -507,6 +520,9 @@ function log_handler()
 
     make_pretty_log_header intelmas 2
     intelmas version >> local_log.log
+
+    make_pretty_log_header sst 2
+    sst version >> local_log.log
 
     make_pretty_log_header issdfut 2
     # issdfut version >> local_log.log
@@ -611,6 +627,11 @@ log_handler
 echo "End of the process, system will be shutdown in 10s, then you can remove the drives..."
 # read -p "End of the process, Hit Enter to exit and shutdown, then you can remove the drives..." -n1 -s
 sleep 10
+
+if [ $DEBUG == "TRUE" ]; then
+    pauseToCheck "After SSD FW programming, pause to check before reboot.."
+fi
+
 init 0
 
 

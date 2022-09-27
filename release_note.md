@@ -2,6 +2,8 @@
 
 You will need git to get the latest code from SW lab server through below command.
 
+
+* [SSD_REFLASH_L9_OFFLINE on GitHub](https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE)
 * Command to clone: 
   * `git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git`
 * Command to update: 
@@ -54,16 +56,21 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## Tool Versions
-1. intelmas: 
+1. Solidigm™ Storage Tool (Intel® branded NAND SSDs)
+   1. version: intelmas-2.1.352-0.x86_64
+   2. [download_url](https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t)
+   3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
+2. intelmas: 
    1. version: intelmas-2.1.352-0.x86_64
    2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
-   3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
-2. issdcm: 
+   3. intelmas cannot be downloaded from Sep. 2022, and sst is now the tool to get SSD FW updated.
+   <!-- 3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool. -->
+3. issdcm: 
    1. version: issdcm-3.0.3-1.x86_64
    2. download_url, provided by intel 
    3. note: 
       1. Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on **Tue 4/13/2021 10:38 AM** **RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr**
-3. isdct: depracated
+4. isdct: depracated
    1. version: isdct-3.0.26.400-1.x86_64
    2. [download_url]()
    3. note: **depracated**
@@ -76,6 +83,10 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## History
 
+
+#### version 212: 2022/09/27
+* sst is now used to update SSD FWs, so add support for it.
+  * please install sst base on above links in `Tool Versions`.
 
 #### version 211: 2022/09/22
 * Intel released `RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -April_2022》》》》fw table Sep_2022`
