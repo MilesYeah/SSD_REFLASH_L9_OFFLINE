@@ -18,55 +18,26 @@
 -->
 <h2 id="must-read-on-each-release"><strong>Must read on each release</strong></h2>
 <ol type="1">
-<li>Be sure your system is connected to MiTAC office network, so the code update can be downloaded through Git.</li>
+<li>Be sure your system is connected to Internet, so the code update can be downloaded through Git.</li>
 <li>After getting new version package, below actions need to be done:
 <ol type="1">
 <li>Be sure you have checked tool versions in defined in below <strong>tool_versions</strong>.
 <ol type="1">
-<li>If the tool versions don’t match the definations, update the tool accordingly.</li>
+<li>If the tool versions don’t match the definitions, update the tool accordingly.</li>
 </ol></li>
 <li>Check section <strong>history</strong> to get the latest change note.</li>
-<li>Replace the whole package in production environment, actually you can clone or update the code directly in environment.</li>
+<li>Replace the whole package in production environment, actually you can clone or update the code directly through Git.</li>
 <li>Be sure the <strong>SSD_LIST.txt</strong> is generated and updated strictly base on <strong>DSG L9 FW control table</strong> from intel.</li>
 <li>Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in <strong>folder firmware_image</strong>.
 <ol type="1">
 <li>When new FW image is provided, create a folder named after firmware version, extract the firmware package and copy all the content from the extracted package to the newly created folder.</li>
-<li>If a standalone FW image is depracated, remove the folder from firmware_image.</li>
-<li>Make some note if possible.</li>
+<li>If a standalone FW image is deprecated, remove the folder from firmware_image.</li>
+<li>Make some note to introduce current FW image if possible.</li>
 </ol></li>
 </ol></li>
 <li>Please commit issues if any, and send me the log files after verification.</li>
 </ol>
 <h2 id="warnning">Warnning</h2>
-<ol type="1">
-<li><p>Below SSDs have <code>No Firmware Update Available</code></p>
-<table>
-<thead>
-<tr class="header">
-<th>product_code</th>
-<th>mm_number</th>
-<th>product_name</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>SSDPD21K375GA01</td>
-<td>958883</td>
-<td>D4800X (375GB, NVMe 2.5inch)</td>
-</tr>
-<tr class="even">
-<td>SSDPD21K750GA01</td>
-<td>958884</td>
-<td>D4800X (750GB, NVMe 2.5inch)</td>
-</tr>
-<tr class="odd">
-<td>SSDPD21K015TA01</td>
-<td>958885</td>
-<td>D4800X (1.5TB, NVMe 2.5inch)</td>
-</tr>
-</tbody>
-</table></li>
-</ol>
 <h2 id="running-environment">Running Environment</h2>
 <ol type="1">
 <li>Developer: Robert.Ye (robert.ye@mic.com.tw)</li>
@@ -81,7 +52,7 @@
 <ol type="1">
 <li>Solidigm™ Storage Tool (Intel® branded NAND SSDs)
 <ol type="1">
-<li>version: intelmas-2.1.352-0.x86_64</li>
+<li>version: sst-1.3.208-0.x86_64</li>
 <li><a href="https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t">download_url</a></li>
 <li>note: Currently, it is mainly to get drive FW updated with the versions inside the tool.</li>
 </ol></li>
@@ -104,10 +75,13 @@
 <ol type="1">
 <li>version: isdct-3.0.26.400-1.x86_64</li>
 <li><a href="">download_url</a></li>
-<li>note: <strong>depracated</strong> <!-- 4. issdfut: 
-1. version: NA
-2. [download_url] NA
-3. note: need to use in a independent OS, not for this process. --></li>
+<li>note: <strong>depracated</strong></li>
+</ol></li>
+<li>issdfut:
+<ol type="1">
+<li>version: NA</li>
+<li><a href="https://www.intel.com/content/www/us/en/download/17903/intel-ssd-firmware-update-tool.html?">download_url</a></li>
+<li>note: need to use in a independent OS, not for this process.</li>
 </ol></li>
 </ol>
 <h2 id="history">History</h2>

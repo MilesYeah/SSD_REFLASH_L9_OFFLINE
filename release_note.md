@@ -20,29 +20,22 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## **Must read on each release**
-1. Be sure your system is connected to MiTAC office network, so the code update can be downloaded through Git.
+1. Be sure your system is connected to Internet, so the code update can be downloaded through Git.
 2. After getting new version package, below actions need to be done:
    1. Be sure you have checked tool versions in defined in below **tool_versions**.
-      1. If the tool versions don't match the definations, update the tool accordingly.
+      1. If the tool versions don't match the definitions, update the tool accordingly.
    2. Check section **history** to get the latest change note.
-   3. Replace the whole package in production environment, actually you can clone or update the code directly in  environment.
+   3. Replace the whole package in production environment, actually you can clone or update the code directly through Git.
    4. Be sure the **SSD_LIST.txt** is generated and updated strictly base on **DSG L9 FW control table** from intel.
    5. Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in **folder firmware_image**.
       1. When new FW image is provided, create a folder named after firmware version, extract the firmware package and copy all the content from the extracted package to the newly created folder.
-      2. If a standalone FW image is depracated, remove the folder from firmware_image.
-      3. Make some note if possible.
+      2. If a standalone FW image is deprecated, remove the folder from firmware_image.
+      3. Make some note to introduce current FW image if possible.
 3. Please commit issues if any, and send me the log files after verification.
 
 
+
 ## Warnning
-1. Below SSDs have `No Firmware Update Available`
-
-   | product_code    | mm_number | product_name                                                    |
-   | --------------- | --------- | --------------------------------------------------------------- |
-   | SSDPD21K375GA01 | 958883    | D4800X (375GB, NVMe 2.5inch)                                    |
-   | SSDPD21K750GA01 | 958884    | D4800X (750GB, NVMe 2.5inch)                                    |
-   | SSDPD21K015TA01 | 958885    | D4800X (1.5TB, NVMe 2.5inch)                                    |
-
 
 
 
@@ -57,7 +50,7 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## Tool Versions
 1. Solidigm™ Storage Tool (Intel® branded NAND SSDs)
-   1. version: intelmas-2.1.352-0.x86_64
+   1. version: sst-1.3.208-0.x86_64
    2. [download_url](https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t)
    3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
 2. intelmas: 
@@ -74,15 +67,14 @@ You will need git to get the latest code from SW lab server through below comman
    1. version: isdct-3.0.26.400-1.x86_64
    2. [download_url]()
    3. note: **depracated**
-<!-- 4. issdfut: 
+4. issdfut: 
    1. version: NA
-   2. [download_url] NA
-   3. note: need to use in a independent OS, not for this process. -->
+   2. [download_url](https://www.intel.com/content/www/us/en/download/17903/intel-ssd-firmware-update-tool.html?)
+   3. note: need to use in a independent OS, not for this process.
 
 
 
 ## History
-
 
 #### version 212: 2022/09/27
 * sst is now used to update SSD FWs, so add support for it.
