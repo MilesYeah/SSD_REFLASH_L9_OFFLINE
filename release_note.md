@@ -7,7 +7,7 @@ You will need git to get the latest code from SW lab server through below comman
 * Command to clone: 
   * `git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git`
 * Command to update: 
-  * `git pull origin master`
+  * `git pull origin main`
 
 
 
@@ -35,7 +35,7 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 
-## Warnning
+## Warning
 
 
 
@@ -253,75 +253,67 @@ You will need git to get the latest code from SW lab server through below comman
 1. Be sure that you have successfully finished the steps in **For first time user**
 2. Open a cmd/shell terminal.
 3. If you want to get the code from a clean system, execute following command
-   * **git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git**
+   * `git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git`
 4. If your system already cloned the code and you want to get the latest code from server, execute following command
-   * **git pull origin master**
-5. While clone or pull from server, you will need to input the password for current reporistory, contact the repository maintainer to get the password.
-6. A simple to show how to colne the code from server.
+   * `git pull origin main`
+5. A simple to show how to clone the code from server.
 
-    ```powershell
-    PS F:\Development> cd .\temp\
-    PS F:\Development\temp> ls
-    PS F:\Development\temp>
-    PS F:\Development\temp> git clone ssh://user_pe@10.86.122.204:29418/SSDReflash.git
-    Cloning into 'SSDReflash'...
-    Password authentication
-    Password:
-    remote: Counting objects: 49, done
-    remote: Finding sources: 100% (49/49)
-    remote: Getting sizes: 100% (26/26)
-    remote: Total 49 (delta 15), reused 49 (delta 15) eceiving objects:  71% (35/49)
-    Receiving objects: 100% (49/49), 206.85 KiB | 0 bytes/s, done.
-    Resolving deltas: 100% (15/15), done.
-    PS F:\Development\temp>
-    ```
+   ```powershell
+   F:\zzz.Temp>git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git
+   Cloning into 'SSD_REFLASH_L9_OFFLINE'...
+   remote: Enumerating objects: 188, done.
+   remote: Counting objects: 100% (188/188), done.
+   remote: Compressing objects: 100% (84/84), done.
+   remote: Total 188 (delta 111), reused 179 (delta 102), pack-reused 0R
+   Receiving objects:  88% (166/188), 2.07 MiB | 904.00 KiB/s
+   Receiving objects: 100% (188/188), 2.29 MiB | 954.00 KiB/s, done.
+   Resolving deltas: 100% (111/111), done.
 
-    ```powershell
-    PS F:\Development\temp> ls
+   F:\zzz.Temp>
+   ```
 
+   ```powershell
+   F:\zzz.Temp>cd SSD_REFLASH_L9_OFFLINE
 
-        Directory: F:\Development\temp
+   F:\zzz.Temp\SSD_REFLASH_L9_OFFLINE>dir
+   驱动器 F 中的卷是 Miles
+   卷的序列号是 0DC0-1467
 
+   F:\zzz.Temp\SSD_REFLASH_L9_OFFLINE 的目录
 
-    Mode                LastWriteTime         Length Name
-    ----                -------------         ------ ----
-    d-----         3/3/2021   9:27 AM                SSDReflash
+   2022/09/28  14:55    <DIR>          .
+   2022/09/28  14:55    <DIR>          ..
+   2022/09/28  14:55               143 .gitignore
+   2022/09/28  14:55               591 auto.release.ps1
+   2022/09/28  14:55    <DIR>          Docs
+   2022/09/28  14:55    <DIR>          firmware_image
+   2022/09/28  14:55            24,296 FW_List_20220909_updated.xlsx
+   2022/09/28  14:55             1,620 geneSSDFwList.py
+   2022/09/28  14:55             6,939 PROCESS.py
+   2022/09/28  14:55            19,237 PROCESS.sh
+   2022/09/28  14:55            30,130 release_note.html
+   2022/09/28  14:55            18,065 release_note.md
+   2022/09/28  14:55             3,474 SSD_List.new.fromXLSX.txt
+   2022/09/28  14:55             3,766 SSD_List.new.txt
+   2022/09/28  14:55             2,526 SSD_List.old.txt
+               11 个文件        110,787 字节
+                  4 个目录 439,969,902,592 可用字节
 
-
-    PS F:\Development\temp>
-    PS F:\Development\temp> cd .\SSDReflash\
-    PS F:\Development\temp\SSDReflash> ls
-
-
-        Directory: F:\Development\temp\SSDReflash
-
-
-    Mode                LastWriteTime         Length Name
-    ----                -------------         ------ ----
-    d-----         3/3/2021   9:27 AM                Docs
-    -a----         3/3/2021   9:27 AM             86 .gitignore
-    -a----         3/3/2021   9:27 AM           6939 PROCESS.py
-    -a----         3/3/2021   9:27 AM          12461 PROCESS.sh
-    -a----         3/3/2021   9:27 AM           6737 releasenote.txt
-    -a----         3/3/2021   9:27 AM         106590 SSD_FW_reflash.docx
-    -a----         3/3/2021   9:27 AM           2259 SSD_LIST.txt
-    -a----         3/3/2021   9:27 AM            337 trial.py
-
-
-    PS F:\Development\temp\SSDReflash>
-    ```
+   F:\zzz.Temp\SSD_REFLASH_L9_OFFLINE>
+   ```
 
 
 ### Get the latest code through web
 1. Goto below path and login with the account that the maintainer provided.
-   1. http://10.86.122.204:10010/
+   * [SSD_REFLASH_L9_OFFLINE on GitHub](https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE)
+   * You can download a zip file which contains all the codes and files.
 
 
 
 
 ## Brand new system setup
 
-1.	Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.
+1. Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.
 2. OS Setup
    1. Install Linux using EST install process.
    2. Add contents of **SSD_REFLASH** to **/TEST** replacing PROCESS.sh with PROCESS.sh included.
@@ -330,6 +322,7 @@ You will need git to get the latest code from SW lab server through below comman
    5. Install issdcm rpm: **rpm –ivh issdcm-*x86_64.rpm**.
    6. Install intelmas rpm: **rpm –ivh intemmas-*x86_64.rpm**.
    7. Install issdct rpm: **rpm –ivh issdct-*x86_64.rpm**.
+   8. Install sst rpm: **rpm –ivh sst-*x86_64.rpm**.
 3. SSD Reflash
    1. Install target SSD's.
    2. Power up the system.
