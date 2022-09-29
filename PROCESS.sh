@@ -183,7 +183,7 @@ function variable_get_from_flowlog () {
         do
             para=`echo $line | awk -F= '{print $1}'`
             value=`echo $line | awk -F= '{print $2}'`
-            eval "export $para=$value"
+            eval "export $para=\"$value\""
         done
     fi
 }
@@ -216,7 +216,7 @@ function check_tool_version()
 
     rpm -qa > app_list
     if [ `egrep -wi sst app_list | grep -c "${VERSION_SST}"` -lt 1 ]; then
-        echo "SST version: `grep -i SST app_list`"
+        echo "SST version: `egrep -wi sst app_list`"
         read -p "Unexpected SST version, please update it..."
         exit 1
     fi
