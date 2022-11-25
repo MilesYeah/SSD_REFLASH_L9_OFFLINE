@@ -79,6 +79,10 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## History
 
+#### version 213.1: 2022/11/25
+* HOU engineer reported  P4510 cannot get updated
+  * successfully updated by sst, so P4510 will use mas to update fw
+
 #### version 213: 2022/11/25
 * SST now cannot be found from intel website, but MAS does.
   * now we switch back to MAS to try.
