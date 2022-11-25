@@ -1,181 +1,487 @@
-<h1 id="release-notice">Release notice</h1>
+<!DOCTYPE html><html><head>
+      <title>release_note</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\robert.ye\.vscode-insiders\extensions\shd101wyy.markdown-preview-enhanced-0.6.5\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="release-notice">Release notice</h1>
+
 <p>You will need git to get the latest code from SW lab server through below command.</p>
 <ul>
 <li><a href="https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE">SSD_REFLASH_L9_OFFLINE on GitHub</a></li>
 <li>Command to clone:
 <ul>
 <li><code>git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Command to update:
 <ul>
 <li><code>git pull origin main</code></li>
-</ul></li>
 </ul>
-<!-- ## Developer actions on each release
-1. Make a copy of SSD_LIST.txt from **\\10.86.8.50\Share\TEST\FA\Yu\SSD_REFLASH_L9_OFFLINE.203.1**
-2. Add **DSG L9 FW control table** in Doc folder.
-3. Generate release_note.html before commit. 
--->
-<h2 id="must-read-on-each-release"><strong>Must read on each release</strong></h2>
-<ol type="1">
+</li>
+<li><a href="https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html?wapkw=ssd+firmware">Firmware Versions for Intel&#xAE; Solid State Drives and Intel&#xAE; Optane&#x2122; Memory</a>.</li>
+</ul>
+<h2 class="mume-header" id="must-read-on-each-release"><strong>Must read on each release</strong></h2>
+
+<ol>
 <li>Be sure your system is connected to Internet, so the code update can be downloaded through Git.</li>
 <li>After getting new version package, below actions need to be done:
-<ol type="1">
+<ol>
 <li>Be sure you have checked tool versions in defined in below <strong>tool_versions</strong>.
-<ol type="1">
-<li>If the tool versions don’t match the definitions, update the tool accordingly.</li>
-</ol></li>
+<ol>
+<li>If the tool versions don&apos;t match the definitions, update the tool accordingly.</li>
+</ol>
+</li>
 <li>Check section <strong>history</strong> to get the latest change note.</li>
 <li>Replace the whole package in production environment, actually you can clone or update the code directly through Git.</li>
 <li>Be sure the <strong>SSD_LIST.txt</strong> is generated and updated strictly base on <strong>DSG L9 FW control table</strong> from intel.</li>
 <li>Be sure any update or deletion of standalone drive FW image are done, the firmware image files are now stored in <strong>folder firmware_image</strong>.
-<ol type="1">
+<ol>
 <li>When new FW image is provided, create a folder named after firmware version, extract the firmware package and copy all the content from the extracted package to the newly created folder.</li>
 <li>If a standalone FW image is deprecated, remove the folder from firmware_image.</li>
 <li>Make some note to introduce current FW image if possible.</li>
-</ol></li>
-</ol></li>
+</ol>
+</li>
+</ol>
+</li>
 <li>Please commit issues if any, and send me the log files after verification.</li>
 </ol>
-<h2 id="warning">Warning</h2>
-<h2 id="running-environment">Running Environment</h2>
-<ol type="1">
-<li>Developer: Robert.Ye (robert.ye@mic.com.tw)</li>
+<h2 class="mume-header" id="warning">Warning</h2>
+
+<h2 class="mume-header" id="running-environment">Running Environment</h2>
+
+<ol>
+<li>Developer: <a href="http://Robert.Ye">Robert.Ye</a> (<a href="mailto:robert.ye@mic.com.tw">robert.ye@mic.com.tw</a>)</li>
 <li>OS requirement(either one of below)
-<ol type="1">
+<ol>
 <li>Linux RHEL7.3</li>
 <li>Linux RHEL7.5</li>
 <li>Linux RHEL7.6</li>
-</ol></li>
 </ol>
-<h2 id="tool-versions">Tool Versions</h2>
-<ol type="1">
-<li>Solidigm™ Storage Tool (Intel® branded NAND SSDs)
-<ol type="1">
-<li>version: sst-1.3.208-0.x86_64</li>
-<li><a href="https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t">download_url</a></li>
-<li>note: Currently, it is mainly to get drive FW updated with the versions inside the tool.</li>
-</ol></li>
+</li>
+</ol>
+<h2 class="mume-header" id="tool-versions">Tool Versions</h2>
+
+<ol>
 <li>intelmas:
-<ol type="1">
+<ol>
 <li>version: intelmas-2.1.352-0.x86_64</li>
 <li><a href="https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t">download_url</a></li>
-<li>intelmas cannot be downloaded from Sep. 2022, and sst is now the tool to get SSD FW updated. <!-- 3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool. --></li>
-</ol></li>
+<li>note: Currently, it is mainly to get drive FW updated with the versions inside the tool.</li>
+</ol>
+<!-- 3. intelmas cannot be downloaded from Sep. 2022, and sst is now the tool to get SSD FW updated. -->
+</li>
+<li>Solidigm&#x2122; Storage Tool (Intel&#xAE; branded NAND SSDs)
+<ol>
+<li>version: sst-1.3.208-0.x86_64</li>
+<li><a href="https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t">download_url</a></li>
+</ol>
+<!-- 3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool. -->
+<ol start="3">
+<li>this tool cannot be found from intel website, so it is now deprecated using from 2022.11.25.</li>
+</ol>
+</li>
 <li>issdcm:
-<ol type="1">
+<ol>
 <li>version: issdcm-3.0.3-1.x86_64</li>
 <li>download_url, provided by intel</li>
 <li>note:
-<ol type="1">
+<ol>
 <li>Instead of using intelmas, Intel aggreed to load standalone firmware files through this tool on <strong>Tue 4/13/2021 10:38 AM</strong> <strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr</strong></li>
-</ol></li>
-</ol></li>
+</ol>
+</li>
+</ol>
+</li>
 <li>isdct: depracated
-<ol type="1">
+<ol>
 <li>version: isdct-3.0.26.400-1.x86_64</li>
-<li><a href="">download_url</a></li>
+<li><a href>download_url</a></li>
 <li>note: <strong>depracated</strong></li>
-</ol></li>
+</ol>
+</li>
 <li>issdfut:
-<ol type="1">
+<ol>
 <li>version: NA</li>
 <li><a href="https://www.intel.com/content/www/us/en/download/17903/intel-ssd-firmware-update-tool.html?">download_url</a></li>
 <li>note: need to use in a independent OS, not for this process.</li>
-</ol></li>
 </ol>
-<h2 id="history">History</h2>
-<h4 id="version-212-20220927">version 212: 2022/09/27</h4>
+</li>
+</ol>
+<h2 class="mume-header" id="history">History</h2>
+
+<h4 class="mume-header" id="version-213-20221125">version 213: 2022/11/25</h4>
+
+<ul>
+<li>SST now cannot be found from intel website, but MAS does.
+<ul>
+<li>now we switch back to MAS to try.<pre data-role="codeBlock" data-info class="language-"><code>&#x53D1;&#x4EF6;&#x4EBA;: mason25.chen (&#x9673;&#x6D69;&#x5143; - MCT) &lt;mason25.chen@mic.com.tw&gt; 
+&#x53D1;&#x9001;&#x65F6;&#x95F4;: 2022&#x5E74;11&#x6708;25&#x65E5; 14:32
+&#x4E3B;&#x9898;: RE: P4800X (375GB, NVMe, 2.5inch) firmware can&apos;t update sucessfully, need to confirm
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="version-212-20220927">version 212: 2022/09/27</h4>
+
 <ul>
 <li>sst is now used to update SSD FWs, so add support for it.
 <ul>
 <li>please install sst base on above links in <code>Tool Versions</code>.</li>
-</ul></li>
 </ul>
-<h4 id="version-211-20220922">version 211: 2022/09/22</h4>
+</li>
+</ul>
+<h4 class="mume-header" id="version-211-20220922">version 211: 2022/09/22</h4>
+
 <ul>
-<li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -April_2022》》》》fw table Sep_2022</code>
+<li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -April_2022&#x300B;&#x300B;&#x300B;&#x300B;fw table Sep_2022</code>
 <ul>
 <li>intelmas needs an update to <code>2.1</code> to add support for newly updated requirements.</li>
-</ul></li>
+</ul>
+</li>
 <li>Generated a python script to read Excel file and then generate SSD list base on the fw table released from Intel. Below files will be generated:
 <ul>
 <li><code>SSD_List.new.fromXLSX.txt</code>: data from intel released FW table</li>
 <li><code>SSD_List.new.txt</code>: data from intel released FW table plus data that unique from original SSD_list.txt</li>
 <li><code>SSD_List.old.txt</code>: ordered data from original SSD_list.txt</li>
-</ul></li>
+</ul>
+</li>
 <li>Please dont forget to update <code>SSD_list.txt</code></li>
 <li>Since SW lab server is down, this repository will be hold in Github, please see the command reference on the beginning of this document to know how to get and update code on your local host.</li>
 </ul>
-<h4 id="version-210-20211213">version 210: 2021/12/13</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-210-20211213">version 210: 2021/12/13</h4>
+
+<ol>
 <li>Intel released <code>Re: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Dec_2021</code>
-<ol type="1">
+<ol>
 <li>intelmas needs an update to <code>1.12</code> to add support for newly updated requirements.</li>
-</ol></li>
 </ol>
-<h4 id="version-209.1-20211102">version 209.1: 2021/11/02</h4>
-<ol type="1">
+</li>
+</ol>
+<h4 class="mume-header" id="version-2091-20211102">version 209.1: 2021/11/02</h4>
+
+<ol>
 <li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Nov_2021</code>
-<ol type="1">
+<ol>
 <li>intelmas needs an update to <code>1.11</code> to fix issues on P4800/P4801x</li>
-</ol></li>
 </ol>
-<h4 id="version-209-20211027">version 209: 2021/10/27</h4>
-<ol type="1">
+</li>
+</ol>
+<h4 class="mume-header" id="version-209-20211027">version 209: 2021/10/27</h4>
+
+<ol>
 <li>intelmas to v1.11 seems to have fixed the issue that some P4800/P4801x drives cannot get firmware updated.
-<ol type="1">
+<ol>
 <li>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021</li>
-<li>2021/10/27 (周三) 10:36</li>
-<li>Guo, Jianhua <a href="mailto:jianhua.guo@intel.com" class="email">jianhua.guo@intel.com</a></li>
-<li>I think you can use v1.11 first, and Zichao will release it soon in beginning of next month 😊</li>
-</ol></li>
+<li>2021/10/27 (&#x5468;&#x4E09;) 10:36</li>
+<li>Guo, Jianhua <a href="mailto:jianhua.guo@intel.com">jianhua.guo@intel.com</a></li>
+<li>I think you can use v1.11 first, and Zichao will release it soon in beginning of next month &#x1F60A;</li>
 </ol>
-<h4 id="version-208.1-20211011">version 208.1: 2021/10/11</h4>
-<ol type="1">
+</li>
+</ol>
+<h4 class="mume-header" id="version-2081-20211011">version 208.1: 2021/10/11</h4>
+
+<ol>
 <li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Oct_2021</code>
-<ol type="1">
+<ol>
 <li>No update for intelmas</li>
-</ol></li>
+</ol>
+</li>
 <li>Add functions to record running status in flowlog.</li>
 <li>Fix a bug while disconnecting drives.
-<ol type="1">
+<ol>
 <li><code>lsblk -O</code> seems to not dump drive and partition information, so use <code>lsblk</code> directly.</li>
-</ol></li>
 </ol>
-<h4 id="version-208-20210910">version 208: 2021/09/10</h4>
-<ol type="1">
+</li>
+</ol>
+<h4 class="mume-header" id="version-208-20210910">version 208: 2021/09/10</h4>
+
+<ol>
 <li>Intel released <code>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -Sept_2021</code>
-<ol type="1">
+<ol>
 <li>Intel MAS needs a update to version <code>1.10</code>.</li>
-</ol></li>
 </ol>
-<h4 id="version-207.2-20210819">version 207.2: 2021/08/19</h4>
-<ol type="1">
-<li>Change the waiting time from 6 to 10 seconds per HOU PE’s request.
-<ol type="1">
-<li><code>L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</code> <code>2021年8月19日 10:45</code></li>
-</ol></li>
+</li>
 </ol>
-<h4 id="version-207.1-20210813">version 207.1: 2021/08/13</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-2072-20210819">version 207.2: 2021/08/19</h4>
+
+<ol>
+<li>Change the waiting time from 6 to 10 seconds per HOU PE&apos;s request.
+<ol>
+<li><code>L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</code> <code>2021&#x5E74;8&#x6708;19&#x65E5; 10:45</code></li>
+</ol>
+</li>
+</ol>
+<h4 class="mume-header" id="version-2071-20210813">version 207.1: 2021/08/13</h4>
+
+<ol>
 <li><code>L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug_V2.0</code> was released.</li>
 <li>Deleted SSD_LIST.txt incase any mistake was made by accident which would be caused by the SSD_LIST.txt file.</li>
 </ol>
-<h4 id="version-207-20210809">version 207: 2021/08/09</h4>
-<ol type="1">
-<li><p><strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</strong> was released, below drives need update.</p>
+<h4 class="mume-header" id="version-207-20210809">version 207: 2021/08/09</h4>
+
+<ol>
+<li>
+<p><strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Aug</strong> was released, below drives need update.</p>
 <table>
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 7%" />
-<col style="width: 53%" />
-<col style="width: 7%" />
-<col style="width: 8%" />
-<col style="width: 7%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>product_code</th>
 <th>mm_number</th>
 <th>product_name</th>
@@ -185,7 +491,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>SSDPE2KX010T801</td>
 <td>959391</td>
 <td>P4510 (1TB, NVMe, 2.5inch)</td>
@@ -193,7 +499,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPE2KX020T801</td>
 <td>959393</td>
 <td>P4510 (2TB, NVMe, 2.5inch)</td>
@@ -201,7 +507,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SSDPE2KX040T801</td>
 <td>959395</td>
 <td>SSD DC P4510 Series (4TB, NVMe, 2.5inch, 3D3, TLC)</td>
@@ -209,7 +515,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPE2KX080T801</td>
 <td>959397</td>
 <td>SSD DC P4510 Series (8TB, NVMe, 2.5inch, 3D3, TLC)</td>
@@ -217,7 +523,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SSDPE2KE016T801</td>
 <td>978083</td>
 <td>P4610 (1.6TB, NVMe, 2.5 inch)</td>
@@ -225,7 +531,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPE2KE032T801</td>
 <td>978084</td>
 <td>P4610 (3.2TB, NVMe, 2.5 inch)</td>
@@ -233,7 +539,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SSDPE2KE064T801</td>
 <td>978085</td>
 <td>P4610 (6.4TB, NVMe, 2.5 inch)</td>
@@ -241,7 +547,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPE2KE076T801</td>
 <td>963520</td>
 <td>P4610 (7.68TB, NVMe, 2.5 inch)</td>
@@ -249,7 +555,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SSDPECKE064T801</td>
 <td>999CNK</td>
 <td>SSD DC P4618 Series ( 6.4TB, 1/2 Height PCIe 3.1 x8, 3D2, TLC</td>
@@ -257,7 +563,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPE2KE032T8OS</td>
 <td>984823</td>
 <td>SSD DC P4610 Series (3.2TB, 2.5in PCIe 3.1 x4, 3D2, TLC)</td>
@@ -265,7 +571,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SSDPEWKX153T801</td>
 <td>999JJ2</td>
 <td>P4510 (15.36TB, Ruler)</td>
@@ -273,7 +579,7 @@
 <td>VDV10182</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPF21Q016TB01</td>
 <td>99A6PV</td>
 <td>Optane SSD DC P5800X (1.6TB, 2.5in PCIe x4, 3D XPoint)</td>
@@ -281,7 +587,7 @@
 <td>L0310200</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>SSDPF21Q800GB01</td>
 <td>99A6PT</td>
 <td>Optane SSD DC P5800X (800GB, 2.5in PCIe x4, 3D XPoint)</td>
@@ -289,7 +595,7 @@
 <td>L0310200</td>
 <td>2021/7/6</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SSDPF21Q400GB01</td>
 <td>99A6PN</td>
 <td>Optane SSD DC P5800X (400GB, 2.5in PCIe x4, 3D XPoint)</td>
@@ -298,187 +604,235 @@
 <td>2021/7/6</td>
 </tr>
 </tbody>
-</table></li>
-<li><p><strong>intel-mas-cli-tool-linux-1-9</strong> has been released, <strong>VDV10182</strong> and <strong>L0310200</strong> are in support list. So Intel MAS needs a update to version <strong>1.9.147</strong></p></li>
-<li><p>Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment.</p></li>
-<li><p>After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.</p></li>
+</table>
+</li>
+<li>
+<p><strong>intel-mas-cli-tool-linux-1-9</strong> has been released, <strong>VDV10182</strong> and <strong>L0310200</strong> are in support list. So Intel MAS needs a update to version <strong>1.9.147</strong></p>
+</li>
+<li>
+<p>Add function to disconnect drives as soon as drives are successfully updated to expected firmware version. Beta, to be verified in real production environment.</p>
+</li>
+<li>
+<p>After firmware update, the system would shutdown automatically. In case OP rmoves drives while the system is in a powered on status which would damage the drives.</p>
+</li>
 </ol>
-<h4 id="version-206.4-202106028">version 206.4: 2021/06/028</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-2064-202106028">version 206.4: 2021/06/028</h4>
+
+<ol>
 <li><code>intelmas-1.8</code> is required as <code>DSG L9 FW control table_Jun2021.xlsx</code> is released, in which several new SSD series were added that need <code>intelmas-1.8</code>.</li>
 <li>A warning is that SSDs in above warning section have <code>No Firmware Update Available</code>,
-<ol type="1">
+<ol>
 <li>a Email has been sent to Intel for comfirmation about how to handle the FW when they are not expected.</li>
-<li>Reply from Intel <strong>If the SSD show “No Firmware Update Available”, we don’t need to update it. Once find SSD in this case don’t match the FW control table, you can report.</strong></li>
-</ol></li>
+<li>Reply from Intel <strong>If the SSD show &#x201C;No Firmware Update Available&#x201D;, we don&#x2019;t need to update it.  Once find SSD in this case don&#x2019;t match the FW control table, you can report.</strong></li>
+</ol>
+</li>
 <li>Fixed a bug to checking tool versions. This is a new feature to prevent unexpected tool version applied.</li>
 <li>Add some better log recording.</li>
 </ol>
-<h4 id="version-205.1-20210513">version 205.1: 2021/05/13</h4>
-<ol type="1">
-<li>Add function to check versions for intelmas, isdct, isdcm, if the tool version doesn’t match the required, the process would pause running and prompt that the tool needs a update.</li>
+<h4 class="mume-header" id="version-2051-20210513">version 205.1: 2021/05/13</h4>
+
+<ol>
+<li>Add function to check versions for intelmas, isdct, isdcm, if the tool version doesn&apos;t match the required, the process would pause running and prompt that the tool needs a update.</li>
 </ol>
-<h4 id="version-204.1-20210506">version 204.1: 2021/05/06</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-2041-20210506">version 204.1: 2021/05/06</h4>
+
+<ol>
 <li><strong>RE: L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 May</strong> has been released, and there are 3 updates to SSDs.
-<ol type="1">
+<ol>
 <li>IntelMAS needs a update to version <strong>intelmas-1.7.130-0.x86_64</strong>, so the 3 SSDs get expected update.</li>
-</ol></li>
 </ol>
-<h4 id="version-203.2-20210413">version 203.2: 2021/04/13</h4>
-<ol type="1">
+</li>
+</ol>
+<h4 class="mume-header" id="version-2032-20210413">version 203.2: 2021/04/13</h4>
+
+<ol>
 <li>PE Brady reported E2010487 cannot be updated through intelmas and he has successfully updated the firmware through isdcm on P4800x.
-<ol type="1">
+<ol>
 <li>On <strong>L9 RAID/SSD/NIC FW Control Table for DSG Prods -2021 Apr</strong>, Intel Jonny confirmed standalone FW image can be loaded through isdcm.</li>
 <li>Switch back to isdcm instead of intelmas.</li>
-</ol></li>
 </ol>
-<h4 id="version-203.1-20210407">version 203.1: 2021/04/07</h4>
-<ol type="1">
+</li>
+</ol>
+<h4 class="mume-header" id="version-2031-20210407">version 203.1: 2021/04/07</h4>
+
+<ol>
 <li>P4800X and P4801X series now needs firmware E2010487, use intelmas to load standalone firmware.</li>
 <li>Firmware image files are now sotred in folder firmware_image, add folder E2010487 in firmware_image folder.</li>
 </ol>
-<h4 id="version-202.4-20210310">version 202.4: 2021/03/10</h4>
-<ol type="1">
-<li>Move tool version definations and history to here per PE’s requests.</li>
+<h4 class="mume-header" id="version-2024-20210310">version 202.4: 2021/03/10</h4>
+
+<ol>
+<li>Move tool version definations and history to here per PE&apos;s requests.</li>
 <li>Refactor package folder structure.</li>
 </ol>
-<h4 id="version-202.3-20210304">version 202.3: 2021/03/04</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-2023-20210304">version 202.3: 2021/03/04</h4>
+
+<ol>
 <li>Resolve a bug to collect Pids of each updating drive.</li>
 <li>If the need reboot key word is detected, a automatically reboot would be performed.</li>
 <li>Add notice to show how to get or update code from Git Server</li>
 <li>Intel released <strong>DSG L9 FW control table_Mar2021_v0.3.xlsx</strong>,
-<ol type="1">
+<ol>
 <li>Ignore the NIC, RAID, etc</li>
 <li>Support for SSDPE2KE032T8OS has been added in 202.2 with intelmas.</li>
-</ol></li>
 </ol>
-<h4 id="version-202.2-20210302">version 202.2: 2021/03/02</h4>
-<ol type="1">
-<li>intelmas is now mainly used to update FW for normal drives, issdct is depracated and we cannot find it from ark.intel.com.</li>
+</li>
+</ol>
+<h4 class="mume-header" id="version-2022-20210302">version 202.2: 2021/03/02</h4>
+
+<ol>
+<li>intelmas is now mainly used to update FW for normal drives, issdct is depracated and we cannot find it from <a href="http://ark.intel.com">ark.intel.com</a>.</li>
 <li>A more detailed log will be generated in log folder and more details will be shown on terminal while performing the process.</li>
 <li>Verified on production line.</li>
 </ol>
-<h4 id="version-201.1-20210128">version 201.1: 2021/01/28</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-2011-20210128">version 201.1: 2021/01/28</h4>
+
+<ol>
 <li>Add check for drive status, if it is abnormal, record a abormal message in log file.</li>
 </ol>
-<h4 id="version-201.0-20201211">version 201.0: 2020/12/11</h4>
-<ol type="1">
+<h4 class="mume-header" id="version-2010-20201211">version 201.0: 2020/12/11</h4>
+
+<ol>
 <li>Owner of this package has been transfered from Intel to MSL SW.</li>
 <li>Add ProductFamily while detecting product list.</li>
 <li>While updating FW, D5-P4618 series SSD would use isdct to update FW and the rest would use intelmas.</li>
 </ol>
-<h2 id="for-first-time-user">For first time user</h2>
-<ol type="1">
-<li><p>Install Git(Open Source) through installation guides on site https://git-scm.com/downloads.</p>
-<ol type="1">
+<h2 class="mume-header" id="for-first-time-user">For first time user</h2>
+
+<ol>
+<li>
+<p>Install Git(Open Source) through installation guides on site <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>.</p>
+<ol>
 <li>Download the latest git version base on your OS and install it.</li>
 <li>Be sure check the item to <strong>add git to PATH</strong> while installing it.</li>
-<li>Git is a open source software and you don’t need to worry that someone would charge any fees from you.</li>
-</ol></li>
-<li><p>Open a cmd/shell terminal to execute following commands to configure your basic information, replace name and email address to your real information</p>
+<li>Git is a open source software and you don&apos;t need to worry that someone would charge any fees from you.</li>
+</ol>
+</li>
+<li>
+<p>Open a cmd/shell terminal to execute following commands to configure your basic information, replace name and email address to your real information</p>
 <ul>
-<li><strong>git config –global user.name “yourName”</strong></li>
-<li><strong>git config –global user.email “yourEmail@mic.com.tw”</strong></li>
-</ul></li>
-<li><p>Now your git environment is well set.</p></li>
-<li><p>A sample to check whether git is well installed. Below command prompt shows windows git version 2.13.2 is installed.</p>
-<pre class="bat"><code>Windows PowerShell
+<li><strong>git config --global <a href="http://user.name">user.name</a> &quot;yourName&quot;</strong></li>
+<li><strong>git config --global user.email <a href="mailto:%22yourEmail@mic.com.tw">&quot;yourEmail@mic.com.tw</a>&quot;</strong></li>
+</ul>
+</li>
+<li>
+<p>Now your git environment is well set.</p>
+</li>
+<li>
+<p>A sample to check whether git is well installed. Below command prompt shows windows git version 2.13.2 is installed.</p>
+<pre data-role="codeBlock" data-info="bat" class="language-bat"><code>Windows PowerShell
 Copyright (C) Microsoft Corporation. All rights reserved.
 
 PS F:\Development\SSD_REFLASH_L9_OFFLINE&gt; git --version
 git version 2.13.2.windows.1
-PS F:\Development\SSD_REFLASH_L9_OFFLINE&gt;</code></pre></li>
+PS F:\Development\SSD_REFLASH_L9_OFFLINE&gt;
+</code></pre></li>
 </ol>
-<h2 id="get-the-latest-code">Get the latest code</h2>
-<h3 id="get-the-latest-code-through-command-line">Get the latest code through command line</h3>
-<ol type="1">
-<li><p>Be sure that you have successfully finished the steps in <strong>For first time user</strong></p></li>
-<li><p>Open a cmd/shell terminal.</p></li>
-<li><p>If you want to get the code from a clean system, execute following command</p>
+<h2 class="mume-header" id="get-the-latest-code">Get the latest code</h2>
+
+<h3 class="mume-header" id="get-the-latest-code-through-command-line">Get the latest code through command line</h3>
+
+<ol>
+<li>
+<p>Be sure that you have successfully finished the steps in <strong>For first time user</strong></p>
+</li>
+<li>
+<p>Open a cmd/shell terminal.</p>
+</li>
+<li>
+<p>If you want to get the code from a clean system, execute following command</p>
 <ul>
 <li><code>git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git</code></li>
-</ul></li>
-<li><p>If your system already cloned the code and you want to get the latest code from server, execute following command</p>
+</ul>
+</li>
+<li>
+<p>If your system already cloned the code and you want to get the latest code from server, execute following command</p>
 <ul>
 <li><code>git pull origin main</code></li>
-</ul></li>
-<li><p>A simple to show how to clone the code from server.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>F<span class="op">:</span>\zzz<span class="op">.</span><span class="fu">Temp</span><span class="op">&gt;</span>git clone https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/</span>MilesYeah<span class="op">/</span>SSD_REFLASH_L9_OFFLINE<span class="op">.</span><span class="fu">git</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Cloning into &#39;SSD_REFLASH_L9_OFFLINE&#39;<span class="op">...</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Enumerating objects<span class="op">:</span> 188<span class="op">,</span> done<span class="op">.</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Counting objects<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>188<span class="op">/</span>188<span class="op">),</span> done<span class="op">.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Compressing objects<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>84<span class="op">/</span>84<span class="op">),</span> done<span class="op">.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>remote<span class="op">:</span> Total 188 <span class="op">(</span>delta 111<span class="op">),</span> reused 179 <span class="op">(</span>delta 102<span class="op">),</span> pack<span class="op">-</span>reused 0R</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Receiving objects<span class="op">:</span>  88<span class="op">%</span> <span class="op">(</span>166<span class="op">/</span>188<span class="op">),</span> 2<span class="op">.</span><span class="fu">07</span> MiB <span class="op">|</span> 904<span class="op">.</span><span class="fu">00</span> KiB<span class="op">/</span>s</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Receiving objects<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>188<span class="op">/</span>188<span class="op">),</span> 2<span class="op">.</span><span class="fu">29</span> MiB <span class="op">|</span> 954<span class="op">.</span><span class="fu">00</span> KiB<span class="op">/</span>s<span class="op">,</span> done<span class="op">.</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Resolving deltas<span class="op">:</span> 100<span class="op">%</span> <span class="op">(</span>111<span class="op">/</span>111<span class="op">),</span> done<span class="op">.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>F<span class="op">:</span>\zzz<span class="op">.</span><span class="fu">Temp</span><span class="op">&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>F<span class="op">:</span>\zzz<span class="op">.</span><span class="fu">Temp</span><span class="op">&gt;</span><span class="fu">cd</span> SSD_REFLASH_L9_OFFLINE</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>F<span class="op">:</span>\zzz<span class="op">.</span><span class="fu">Temp</span>\SSD_REFLASH_L9_OFFLINE<span class="op">&gt;</span><span class="fu">dir</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>驱动器 F 中的卷是 Miles</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>卷的序列号是 0DC0<span class="op">-</span>1467</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>F<span class="op">:</span>\zzz<span class="op">.</span><span class="fu">Temp</span>\SSD_REFLASH_L9_OFFLINE 的目录</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55    <span class="op">&lt;</span><span class="fu">DIR</span><span class="op">&gt;</span>          <span class="op">.</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55    <span class="op">&lt;</span><span class="fu">DIR</span><span class="op">&gt;</span>          <span class="op">..</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55               143 <span class="op">.</span><span class="fu">gitignore</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55               591 auto<span class="op">.</span><span class="fu">release</span><span class="op">.</span><span class="fu">ps1</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55    <span class="op">&lt;</span><span class="fu">DIR</span><span class="op">&gt;</span>          Docs</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55    <span class="op">&lt;</span><span class="fu">DIR</span><span class="op">&gt;</span>          firmware_image</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55            24<span class="op">,</span>296 FW_List_20220909_updated<span class="op">.</span><span class="fu">xlsx</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55             1<span class="op">,</span>620 geneSSDFwList<span class="op">.</span><span class="fu">py</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55             6<span class="op">,</span>939 <span class="kw">PROCESS</span><span class="op">.</span><span class="fu">py</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55            19<span class="op">,</span>237 <span class="kw">PROCESS</span><span class="op">.</span><span class="fu">sh</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55            30<span class="op">,</span>130 release_note<span class="op">.</span><span class="fu">html</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55            18<span class="op">,</span>065 release_note<span class="op">.</span><span class="fu">md</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55             3<span class="op">,</span>474 SSD_List<span class="op">.</span><span class="fu">new</span><span class="op">.</span><span class="fu">fromXLSX</span><span class="op">.</span><span class="fu">txt</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55             3<span class="op">,</span>766 SSD_List<span class="op">.</span><span class="fu">new</span><span class="op">.</span><span class="fu">txt</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>2022<span class="op">/</span>09<span class="op">/</span>28  14<span class="op">:</span>55             2<span class="op">,</span>526 SSD_List<span class="op">.</span><span class="fu">old</span><span class="op">.</span><span class="fu">txt</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            11 个文件        110<span class="op">,</span>787 字节</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>               4 个目录 439<span class="op">,</span>969<span class="op">,</span>902<span class="op">,</span>592 可用字节</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>F<span class="op">:</span>\zzz<span class="op">.</span><span class="fu">Temp</span>\SSD_REFLASH_L9_OFFLINE<span class="op">&gt;</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>A simple to show how to clone the code from server.</p>
+<pre data-role="codeBlock" data-info="powershell" class="language-powershell">F:\zzz<span class="token punctuation">.</span>Temp&gt;git clone https:<span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>MilesYeah<span class="token operator">/</span>SSD_REFLASH_L9_OFFLINE<span class="token punctuation">.</span>git
+Cloning into <span class="token string">&apos;SSD_REFLASH_L9_OFFLINE&apos;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+remote: Enumerating objects: 188<span class="token punctuation">,</span> done<span class="token punctuation">.</span>
+remote: Counting objects: 100<span class="token operator">%</span> <span class="token punctuation">(</span>188<span class="token operator">/</span>188<span class="token punctuation">)</span><span class="token punctuation">,</span> done<span class="token punctuation">.</span>
+remote: Compressing objects: 100<span class="token operator">%</span> <span class="token punctuation">(</span>84<span class="token operator">/</span>84<span class="token punctuation">)</span><span class="token punctuation">,</span> done<span class="token punctuation">.</span>
+remote: Total 188 <span class="token punctuation">(</span>delta 111<span class="token punctuation">)</span><span class="token punctuation">,</span> reused 179 <span class="token punctuation">(</span>delta 102<span class="token punctuation">)</span><span class="token punctuation">,</span> pack<span class="token operator">-</span>reused 0R
+Receiving objects:  88<span class="token operator">%</span> <span class="token punctuation">(</span>166<span class="token operator">/</span>188<span class="token punctuation">)</span><span class="token punctuation">,</span> 2<span class="token punctuation">.</span>07 MiB <span class="token punctuation">|</span> 904<span class="token punctuation">.</span>00 KiB<span class="token operator">/</span>s
+Receiving objects: 100<span class="token operator">%</span> <span class="token punctuation">(</span>188<span class="token operator">/</span>188<span class="token punctuation">)</span><span class="token punctuation">,</span> 2<span class="token punctuation">.</span>29 MiB <span class="token punctuation">|</span> 954<span class="token punctuation">.</span>00 KiB<span class="token operator">/</span>s<span class="token punctuation">,</span> done<span class="token punctuation">.</span>
+Resolving deltas: 100<span class="token operator">%</span> <span class="token punctuation">(</span>111<span class="token operator">/</span>111<span class="token punctuation">)</span><span class="token punctuation">,</span> done<span class="token punctuation">.</span>
+
+F:\zzz<span class="token punctuation">.</span>Temp&gt;
+</pre><pre data-role="codeBlock" data-info="powershell" class="language-powershell">F:\zzz<span class="token punctuation">.</span>Temp&gt;cd SSD_REFLASH_L9_OFFLINE
+
+F:\zzz<span class="token punctuation">.</span>Temp\SSD_REFLASH_L9_OFFLINE&gt;<span class="token function">dir</span>
+&#x9A71;&#x52A8;&#x5668; F &#x4E2D;&#x7684;&#x5377;&#x662F; Miles
+&#x5377;&#x7684;&#x5E8F;&#x5217;&#x53F7;&#x662F; 0DC0<span class="token operator">-</span>1467
+
+F:\zzz<span class="token punctuation">.</span>Temp\SSD_REFLASH_L9_OFFLINE &#x7684;&#x76EE;&#x5F55;
+
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55    &lt;<span class="token function">DIR</span>&gt;          <span class="token punctuation">.</span>
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55    &lt;<span class="token function">DIR</span>&gt;          <span class="token punctuation">.</span><span class="token punctuation">.</span>
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55               143 <span class="token punctuation">.</span>gitignore
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55               591 auto<span class="token punctuation">.</span>release<span class="token punctuation">.</span>ps1
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55    &lt;<span class="token function">DIR</span>&gt;          Docs
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55    &lt;<span class="token function">DIR</span>&gt;          firmware_image
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55            24<span class="token punctuation">,</span>296 FW_List_20220909_updated<span class="token punctuation">.</span>xlsx
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55             1<span class="token punctuation">,</span>620 geneSSDFwList<span class="token punctuation">.</span>py
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55             6<span class="token punctuation">,</span>939 <span class="token keyword keyword-PROCESS">PROCESS</span><span class="token punctuation">.</span>py
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55            19<span class="token punctuation">,</span>237 <span class="token keyword keyword-PROCESS">PROCESS</span><span class="token punctuation">.</span>sh
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55            30<span class="token punctuation">,</span>130 release_note<span class="token punctuation">.</span>html
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55            18<span class="token punctuation">,</span>065 release_note<span class="token punctuation">.</span>md
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55             3<span class="token punctuation">,</span>474 SSD_List<span class="token punctuation">.</span>new<span class="token punctuation">.</span>fromXLSX<span class="token punctuation">.</span>txt
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55             3<span class="token punctuation">,</span>766 SSD_List<span class="token punctuation">.</span>new<span class="token punctuation">.</span>txt
+2022<span class="token operator">/</span>09<span class="token operator">/</span>28  14:55             2<span class="token punctuation">,</span>526 SSD_List<span class="token punctuation">.</span>old<span class="token punctuation">.</span>txt
+            11 &#x4E2A;&#x6587;&#x4EF6;        110<span class="token punctuation">,</span>787 &#x5B57;&#x8282;
+               4 &#x4E2A;&#x76EE;&#x5F55; 439<span class="token punctuation">,</span>969<span class="token punctuation">,</span>902<span class="token punctuation">,</span>592 &#x53EF;&#x7528;&#x5B57;&#x8282;
+
+F:\zzz<span class="token punctuation">.</span>Temp\SSD_REFLASH_L9_OFFLINE&gt;
+</pre></li>
 </ol>
-<h3 id="get-the-latest-code-through-web">Get the latest code through web</h3>
-<ol type="1">
+<h3 class="mume-header" id="get-the-latest-code-through-web">Get the latest code through web</h3>
+
+<ol>
 <li>Goto below path and login with the account that the maintainer provided.
 <ul>
 <li><a href="https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE">SSD_REFLASH_L9_OFFLINE on GitHub</a></li>
 <li>You can download a zip file which contains all the codes and files.</li>
-</ul></li>
+</ul>
+</li>
 </ol>
-<h2 id="brand-new-system-setup">Brand new system setup</h2>
-<ol type="1">
+<h2 class="mume-header" id="brand-new-system-setup">Brand new system setup</h2>
+
+<ol>
 <li>Hardware needed: Wolfpass or BuchananPass L9 system with direct NVMe / SATA connections to HSBP.</li>
 <li>OS Setup
-<ol type="1">
+<ol>
 <li>Install Linux using EST install process.</li>
-<li>Add contents of <strong>SSD_REFLASH</strong> to <strong>/TEST</strong> replacing PROCESS.sh with PROCESS.sh included.</li>
+<li>Add contents of <strong>SSD_REFLASH</strong> to <strong>/TEST</strong> replacing <a href="http://PROCESS.sh">PROCESS.sh</a> with <a href="http://PROCESS.sh">PROCESS.sh</a> included.</li>
 <li>Copy all of the required drive FW images to <strong>/TEST/firmware_image</strong>.</li>
-<li>Install isdct rpm: **rpm –ivh isdct-*x86_64.rpm**.</li>
-<li>Install issdcm rpm: **rpm –ivh issdcm-*x86_64.rpm**.</li>
-<li>Install intelmas rpm: **rpm –ivh intemmas-*x86_64.rpm**.</li>
-<li>Install issdct rpm: **rpm –ivh issdct-*x86_64.rpm**.</li>
-<li>Install sst rpm: **rpm –ivh sst-*x86_64.rpm**.</li>
-</ol></li>
+<li>Install isdct rpm: *<em>rpm &#x2013;ivh isdct-<em>x86_64.rpm</em></em>.</li>
+<li>Install issdcm rpm: *<em>rpm &#x2013;ivh issdcm-<em>x86_64.rpm</em></em>.</li>
+<li>Install intelmas rpm: *<em>rpm &#x2013;ivh intemmas-<em>x86_64.rpm</em></em>.</li>
+<li>Install issdct rpm: *<em>rpm &#x2013;ivh issdct-<em>x86_64.rpm</em></em>.</li>
+<li>Install sst rpm: *<em>rpm &#x2013;ivh sst-<em>x86_64.rpm</em></em>.</li>
+</ol>
+</li>
 <li>SSD Reflash
-<ol type="1">
-<li>Install target SSD’s.</li>
+<ol>
+<li>Install target SSD&apos;s.</li>
 <li>Power up the system.</li>
 <li>Update script will run automatically.</li>
 <li>Reboot system when prompted to reboot, now the reboot will be executed automatically.</li>
 <li>Verify all target drives status shown as <strong>COMPLETE</strong> with expected FW version.</li>
 <li>Log file captured in <strong>log</strong> folder in server as <code>/TEST/log/${STARTDATE}_${STARTTIME}_SSD_UPDATE.log</code></li>
-</ol></li>
 </ol>
-<h2 id="intel-history">Intel history</h2>
-<pre><code>: &lt;&lt;&#39;HISTORY&#39;
+</li>
+</ol>
+<h2 class="mume-header" id="intel-history">Intel history</h2>
+
+<pre data-role="codeBlock" data-info class="language-"><code>: &lt;&lt;&apos;HISTORY&apos;
 v101.0: Adding &quot;SSDSC2BB150G7&quot;=&quot;N2010121&quot;
 v102.0: Adding SSDSC2KB240G7, FW=SCV10111 with issdcm support
 v103.0: Adding SSDSC2KB480G7, FW SCV10111; SSDPE2KX010T7, FW QDV10150
@@ -492,14 +846,29 @@ v108.0: Moving drive list to separate file.
     Performing parallel updates
 v108.1: Removing line ending when parsing SSD_LIST.txt
 
-HISTORY</code></pre>
-<h2 id="ref">Ref</h2>
+HISTORY
+</code></pre><h2 class="mume-header" id="ref">Ref</h2>
+
 <ul>
-<li><a href="https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html">Firmware Versions for Intel® Solid State Drives and Intel® Optane™ Memory</a></li>
+<li><a href="https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html">Firmware Versions for Intel&#xAE; Solid State Drives and Intel&#xAE; Optane&#x2122; Memory</a></li>
 <li><code>\\10.86.8.50\Share\TEST\FA\Yu\SSD_REFLASH_L9_OFFLINE.206.4</code></li>
 <li><a href="https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t">Download Intel MAS</a></li>
-<li><a href=""></a></li>
-<li><a href=""></a></li>
-<li><a href=""></a></li>
-<li><a href=""></a></li>
+<li><a href></a></li>
+<li><a href></a></li>
+<li><a href></a></li>
+<li><a href></a></li>
 </ul>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -8,6 +8,8 @@ You will need git to get the latest code from SW lab server through below comman
   * `git clone https://github.com/MilesYeah/SSD_REFLASH_L9_OFFLINE.git`
 * Command to update: 
   * `git pull origin main`
+* [Firmware Versions for Intel® Solid State Drives and Intel® Optane™ Memory](https://www.intel.com/content/www/us/en/support/articles/000017245/memory-and-storage.html?wapkw=ssd+firmware).
+
 
 
 
@@ -49,15 +51,16 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## Tool Versions
-1. Solidigm™ Storage Tool (Intel® branded NAND SSDs)
-   1. version: sst-1.3.208-0.x86_64
-   2. [download_url](https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t)
-   3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
-2. intelmas: 
+1. intelmas: 
    1. version: intelmas-2.1.352-0.x86_64
    2. [download_url](https://downloadcenter.intel.com/download/30509/Intel-Memory-and-Storage-Tool-CLI-Command-Line-Interface-?v=t)
-   3. intelmas cannot be downloaded from Sep. 2022, and sst is now the tool to get SSD FW updated.
+   3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool.
+   <!-- 3. intelmas cannot be downloaded from Sep. 2022, and sst is now the tool to get SSD FW updated. -->
+2. Solidigm™ Storage Tool (Intel® branded NAND SSDs)
+   1. version: sst-1.3.208-0.x86_64
+   2. [download_url](https://www.intel.com/content/www/us/en/download/715595/solidigm-storage-tool-intel-branded-nand-ssds.html?v=t)
    <!-- 3. note: Currently, it is mainly to get drive FW updated with the versions inside the tool. -->
+   3. this tool cannot be found from intel website, so it is now deprecated using from 2022.11.25.
 3. issdcm: 
    1. version: issdcm-3.0.3-1.x86_64
    2. download_url, provided by intel 
@@ -67,7 +70,7 @@ You will need git to get the latest code from SW lab server through below comman
    1. version: isdct-3.0.26.400-1.x86_64
    2. [download_url]()
    3. note: **depracated**
-4. issdfut: 
+5. issdfut: 
    1. version: NA
    2. [download_url](https://www.intel.com/content/www/us/en/download/17903/intel-ssd-firmware-update-tool.html?)
    3. note: need to use in a independent OS, not for this process.
@@ -75,6 +78,15 @@ You will need git to get the latest code from SW lab server through below comman
 
 
 ## History
+
+#### version 213: 2022/11/25
+* SST now cannot be found from intel website, but MAS does.
+  * now we switch back to MAS to try.
+      ```
+      发件人: mason25.chen (陳浩元 - MCT) <mason25.chen@mic.com.tw> 
+      发送时间: 2022年11月25日 14:32
+      主题: RE: P4800X (375GB, NVMe, 2.5inch) firmware can't update sucessfully, need to confirm
+      ```
 
 #### version 212: 2022/09/27
 * sst is now used to update SSD FWs, so add support for it.

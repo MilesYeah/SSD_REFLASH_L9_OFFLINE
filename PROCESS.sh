@@ -379,9 +379,12 @@ function update_drive_firmware()
                 elif [[ $ProductFamily =~ $REGX_MAS ]]; then
                     echo "Using intelmas to update REGX_MAS FW. For ${SN}..."
                     nohup echo -n Y | intelmas load -intelssd ${SN} > issdcm_${SN}.log &
-                else
+                elif [[ $ProductFamily =~ $REGX_SST ]]; then
                     echo "Using sst to update REGX_SST FW. For ${SN}..."
                     nohup echo -n Y | sst load -ssd ${SN} > issdcm_${SN}.log &
+                else
+                    echo "Using intelmas to update REGX_MAS FW. For ${SN}..."
+                    nohup echo -n Y | intelmas load -intelssd ${SN} > issdcm_${SN}.log &
                 fi
             fi
             Pids+=($!)
@@ -542,6 +545,10 @@ function log_handler()
     flowlog_item_alter "BOOT_COUNT" "0"
     mv local_log.log ${LOG_FILE}
     # wput -q ${LOG_FILE} ftp://128.101.1.1/tstcom/STATINID/LOG/
+
+    make_pretty_log_header "Linux OS info" 2
+    uname -a >> local_log.log
+    cat /etc/redhat-release >> local_log.log
 
 }
 
