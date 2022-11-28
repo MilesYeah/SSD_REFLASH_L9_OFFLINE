@@ -79,6 +79,20 @@ You will need git to get the latest code from SW lab server through below comman
 
 ## History
 
+#### version 213.2: 2022/11/28
+* SSD of S4510 series cannot be updated through MAS, so we assume that SST still have to be the default tool to get drives updated, let’s switch back to SST.
+* If you want to specify FW updating tool for a specific series of SSD, you can change the code in **PROCESS.sh**.
+  * please see below codes for reference.
+  * the series names have to be splitted by **|**.
+
+```sh
+# series that need special tool to get FW updated.
+REGX_DCT="(D5-P4618)"
+REGX_FUT="(X18-M|X25-M|X25-E)"
+REGX_MAS="(P4800X)"
+REGX_SST="(P4510|S4510)"
+```
+
 #### version 213.1: 2022/11/25
 * HOU engineer reported  P4510 cannot get updated
   * successfully updated by mas, so P4510 will use mas to update fw

@@ -366,7 +366,23 @@ pre[data-line] .line-highlight[data-end]:after {
 </ol>
 <h2 class="mume-header" id="history">History</h2>
 
-<h4 class="mume-header" id="version-2131-20221125">version 213.1: 2022/11/25</h4>
+<h4 class="mume-header" id="version-2132-20221128">version 213.2: 2022/11/28</h4>
+
+<ul>
+<li>SSD of S4510 series cannot be updated through MAS, so we assume that SST still have to be the default tool to get drives updated, let&#x2019;s switch back to SST.</li>
+<li>If you want to specify FW updating tool for a specific series of SSD, you can change the code in <strong><a href="http://PROCESS.sh">PROCESS.sh</a></strong>.
+<ul>
+<li>please see below codes for reference.</li>
+<li>the series names have to be splitted by <strong>|</strong>.</li>
+</ul>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="sh" class="language-bash"><span class="token comment"># series that need special tool to get FW updated.</span>
+<span class="token assign-left variable">REGX_DCT</span><span class="token operator">=</span><span class="token string">&quot;(D5-P4618)&quot;</span>
+<span class="token assign-left variable">REGX_FUT</span><span class="token operator">=</span><span class="token string">&quot;(X18-M|X25-M|X25-E)&quot;</span>
+<span class="token assign-left variable">REGX_MAS</span><span class="token operator">=</span><span class="token string">&quot;(P4800X)&quot;</span>
+<span class="token assign-left variable">REGX_SST</span><span class="token operator">=</span><span class="token string">&quot;(P4510|S4510)&quot;</span>
+</pre><h4 class="mume-header" id="version-2131-20221125">version 213.1: 2022/11/25</h4>
 
 <ul>
 <li>HOU engineer reported  P4510 cannot get updated

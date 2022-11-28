@@ -25,8 +25,8 @@ STATUS=PASSED
 # series that need special tool to get FW updated.
 REGX_DCT="(D5-P4618)"
 REGX_FUT="(X18-M|X25-M|X25-E)"
-REGX_MAS="(emptyList)"
-REGX_SST="(P4510)"
+REGX_MAS="(P4800X)"
+REGX_SST="(P4510|S4510)"
 
 VERSION_SST="1.3.208"
 VERSION_INTELMAS="2.1.352"
@@ -383,8 +383,8 @@ function update_drive_firmware()
                     echo "Using sst to update REGX_SST FW. For ${SN}..."
                     nohup echo -n Y | sst load -ssd ${SN} > issdcm_${SN}.log &
                 else
-                    echo "Using intelmas to update REGX_MAS FW. For ${SN}..."
-                    nohup echo -n Y | intelmas load -intelssd ${SN} > issdcm_${SN}.log &
+                    echo "Using sst to update REGX_SST FW. For ${SN}..."
+                    nohup echo -n Y | sst load -ssd ${SN} > issdcm_${SN}.log &
                 fi
             fi
             Pids+=($!)
